@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - SelectionManager
+  - TypeManager
   - TowerManager
+  - EnemyManager
   layers:
   - Default
   - TransparentFX

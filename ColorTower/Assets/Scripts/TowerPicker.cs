@@ -6,7 +6,7 @@ public class TowerPicker : MonoBehaviour
 {
     private SelectionManager selectionManager;
 
-    public Tower.Type type;
+    public TypeManager.Type type;
 
     // Start is called before the first frame update
     void Start()

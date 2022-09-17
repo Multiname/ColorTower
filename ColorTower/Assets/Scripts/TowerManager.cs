@@ -6,10 +6,6 @@ public class TowerManager : MonoBehaviour
 {
     private List<GameObject> createdTowers = new();
 
-    public readonly List<Color> towerColors = new() {
-        Color.green, Color.yellow, Color.red, Color.blue,
-        new Color(199, 234, 70), new Color(253, 106, 2), new Color(75, 0, 130), Color.cyan,
-        Color.black, new Color(219, 241, 239)};
     public GameObject towerPrefab;
 
     // Start is called before the first frame update
@@ -24,7 +20,7 @@ public class TowerManager : MonoBehaviour
         
     }
 
-    public void PlaceTower(Tower.Type type, Vector3 cellPosition)
+    public void PlaceTower(TypeManager.Type type, Vector3 cellPosition)
     {
         Vector3 towerPosition = new(cellPosition.x, cellPosition.y, 0);
         GameObject createdTower = Instantiate(towerPrefab, towerPosition, towerPrefab.transform.rotation);

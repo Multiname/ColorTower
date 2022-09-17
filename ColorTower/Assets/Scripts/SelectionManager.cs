@@ -49,7 +49,7 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    public void PlaceTower(Tower.Type type)
+    public void PlaceTower(TypeManager.Type type)
     {
         towerManager.PlaceTower(type, selectedCell.position);
         CancelSelection();
