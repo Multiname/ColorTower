@@ -5,13 +5,14 @@ using UnityEngine;
 public class TowerManager : MonoBehaviour
 {
     private List<GameObject> createdTowers = new();
+    private TypeManager typeManager;
 
     public GameObject towerPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class TowerManager : MonoBehaviour
     {
         Vector3 towerPosition = new(cellPosition.x, cellPosition.y, 0);
         GameObject createdTower = Instantiate(towerPrefab, towerPosition, towerPrefab.transform.rotation);
-        createdTower.GetComponent<Tower>().SetType(type);
+        typeManager.SetType(type, createdTower.GetComponent<Tower>());
         createdTowers.Add(createdTower);
     }
 }

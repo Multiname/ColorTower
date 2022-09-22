@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private TypeManager.Type type;
-    private SpriteRenderer spriteRenderer;
-    private Transform transform;
-    private TypeManager typeManager;
     private EnemyManager enemyManager;
     public int movesetNumber;
     private int movementStep = 0;
     public float speed = 5.0f;
 
+    public TypeManager.Type type;
+    public SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        transform = GetComponent<Transform>();
-        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
     }
 
@@ -29,14 +26,9 @@ public class Enemy : MonoBehaviour
             ++movementStep;
     }
 
-    public void SetType(TypeManager.Type type)
-    {
-        this.type = type;
-        typeManager.SetType(this.type, spriteRenderer);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Core"))
+            Destroy(gameObject);
     }
 }

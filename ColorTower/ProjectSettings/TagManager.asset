@@ -8,6 +8,8 @@ TagManager:
   - TypeManager
   - TowerManager
   - EnemyManager
+  - Core
+  - Enemy
   layers:
   - Default
   - TransparentFX

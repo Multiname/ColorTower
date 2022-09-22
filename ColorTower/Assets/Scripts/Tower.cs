@@ -4,26 +4,17 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    private TypeManager.Type type;
-    private SpriteRenderer spriteRenderer;
-    private TypeManager typeManager;
+    public SpriteRenderer SpriteRenderer { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void SetType(TypeManager.Type type)
-    {
-        this.type = type;
-        typeManager.SetType(this.type, spriteRenderer);
     }
 }

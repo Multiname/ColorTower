@@ -35,8 +35,21 @@ public class TypeManager : MonoBehaviour
         
     }
 
-    public void SetType(Type type, SpriteRenderer spriteRenderer)
+    public void SetType(Type type, Tower tower)
     {
-        spriteRenderer.color = typeColors[((int)type)];
+        tower.transform.Find("Weapon").GetComponent<Weapon>().type = type;
+        tower.SpriteRenderer.color = typeColors[((int)type)];
+    }
+
+    public void SetType(Type type, Enemy enemy)
+    {
+        enemy.type = type;
+        enemy.spriteRenderer.color = typeColors[((int)type)];
+    }
+
+    public void SetType(Type type, Projectile projectile)
+    {
+        projectile.type = type;
+        projectile.SpriteRenderer.color = typeColors[((int)type)];
     }
 }
