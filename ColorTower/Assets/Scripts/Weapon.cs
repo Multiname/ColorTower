@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     public GameObject projectilePrefab;
     public TypeManager.Type type;
     public float cooldown = 1.0f;
+    public int damage = 1;
 
     private Vector3 position;
     private TypeManager typeManager;
@@ -53,6 +54,7 @@ public class Weapon : MonoBehaviour
         projectile.target = targets.Peek();
         projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, targets.Peek().position - projectile.transform.position);
         projectile.transform.Rotate(Vector3.forward, 90);
+        projectile.damage = damage;
         typeManager.SetType(type, projectile);
     }
 }

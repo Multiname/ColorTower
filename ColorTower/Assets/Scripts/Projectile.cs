@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     public SpriteRenderer SpriteRenderer { get; private set; }
     public float speed = 5.0f;
     public Transform target;
-
+    public int damage;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,6 +32,9 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(gameObject);
+        }
     }
 }
