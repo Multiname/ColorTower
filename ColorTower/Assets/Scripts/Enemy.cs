@@ -41,7 +41,10 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Core"))
+        {
+            collision.gameObject.GetComponent<Core>().TakeDamage();
             Destroy(gameObject);
+        }
     }
 
     public void TakeDamage(int damage)
@@ -49,7 +52,10 @@ public class Enemy : MonoBehaviour
         healthPoints -= damage;
         if (healthPoints <= 0)
             Destroy(gameObject);
-        healthBarSprite.enabled = true;
-        healthBarLength.localScale -= scaleChange * damage;
+        else
+        {
+            healthBarSprite.enabled = true;
+            healthBarLength.localScale -= scaleChange * damage;
+        }
     }
 }
