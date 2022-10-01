@@ -6,24 +6,24 @@ public class Core : MonoBehaviour
 {
     private List<Color> healthPointsColors = new()
     {
-        Color.white,
-        Color.green,
+        Color.red,
         Color.yellow,
-        Color.red
+        Color.green,
+        Color.white
     };
 
     public int maxHealthPoints = 4;
 
     private SpriteRenderer spriteRenderer;
-    private int healthPoints;
+    public int healthPoints;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = healthPointsColors[maxHealthPoints - healthPoints];
 
         healthPoints = maxHealthPoints;
+        spriteRenderer.color = healthPointsColors[healthPoints - 1];
     }
 
     // Update is called once per frame
@@ -38,6 +38,6 @@ public class Core : MonoBehaviour
         if (healthPoints <= 0)
             Destroy(gameObject);
         else
-            spriteRenderer.color = healthPointsColors[maxHealthPoints - healthPoints];
+            spriteRenderer.color = healthPointsColors[healthPoints - 1];
     }
 }
