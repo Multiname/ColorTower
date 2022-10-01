@@ -38,15 +38,46 @@ public class EnemyManager : MonoBehaviour
         new() { 0, 1, 2, 3, 0, 4 }
     };
 
+    public GameObject enemyPrefab;
+    public TypeManager.Type currentEnemyType;
+    public int enemyNumber = 5;
+    public float spawnInterval = 1;
+
+    private TypeManager typeManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+
+        GenerateWave();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void GenerateWave()
+    {
+        currentEnemyType = (TypeManager.Type)UnityEngine.Random.Range(0, 4);
+    }
+
+    public IEnumerator SpawnEnemies()
+    {
+        for (int i = 0; i < enemyNumber - 1; ++i)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+        SpawnEnemy();
+    }
+
+    private void SpawnEnemy()
+    {
+        Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
+        typeManager.SetType(currentEnemyType, enemy);
+        enemy.movesetNumber = UnityEngine.Random.Range(0, 2);
     }
 }

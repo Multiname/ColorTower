@@ -11,17 +11,17 @@ public class GameManager : MonoBehaviour
     }
 
     private GameState gameState = GameState.Preparation;
-    private SpawnManager spawnManager;
+    private EnemyManager enemyManager;
     private UIManager uiManager;
     private int enemyNumber;
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnManager = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>();
+        enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
 
-        enemyNumber = spawnManager.enemyNumber;
+        enemyNumber = enemyManager.enemyNumber;
         uiManager.SetEnemyNumber(enemyNumber);
     }
 
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public void StartBattle()
     {
         gameState = GameState.Battle;
-        StartCoroutine(spawnManager.SpawnEnemies());
+        StartCoroutine(enemyManager.SpawnEnemies());
     }
 
     public void DecrementEnemyNumber()
@@ -45,8 +45,8 @@ public class GameManager : MonoBehaviour
         {
             gameState = GameState.Preparation;
             uiManager.EndBattle();
-            spawnManager.GenerateWave();
-            enemyNumber = spawnManager.enemyNumber;
+            enemyManager.GenerateWave();
+            enemyNumber = enemyManager.enemyNumber;
         }
     }
 }
