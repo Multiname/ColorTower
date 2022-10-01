@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private EnemyManager enemyManager;
+    private GameManager gameManager;
     public int movesetNumber;
     private int movementStep = 0;
     public float speed = 5.0f;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         Transform child = transform.GetChild(0);
         healthBarLength = child.transform;
@@ -51,7 +53,11 @@ public class Enemy : MonoBehaviour
     {
         healthPoints -= damage;
         if (healthPoints <= 0)
+        {
+            if (healthPoints == 0)
+                gameManager.DecrementEnemyNumber();
             Destroy(gameObject);
+        }
         else
         {
             healthBarSprite.enabled = true;

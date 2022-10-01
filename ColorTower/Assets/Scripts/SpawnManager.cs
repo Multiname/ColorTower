@@ -10,14 +10,15 @@ public class SpawnManager : MonoBehaviour
     public float spawnInterval = 1;
 
     private TypeManager typeManager;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         GenerateWave();
-        StartCoroutine(SpawnEnemies());
     }
 
     // Update is called once per frame
@@ -26,12 +27,12 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    private void GenerateWave()
+    public void GenerateWave()
     {
         currentEnemyType = (TypeManager.Type)Random.Range(0, 4);
     }
 
-    private IEnumerator SpawnEnemies()
+    public IEnumerator SpawnEnemies()
     {
         for (int i = 0; i < enemyNumber - 1; ++i)
         {

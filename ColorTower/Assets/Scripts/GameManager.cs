@@ -1,14 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private enum GameState
+    {
+        Preparation,
+        Battle
+    }
+
+    private GameState gameState = GameState.Preparation;
+    private SpawnManager spawnManager;
+    private UIManager uiManager;
+    private int enemyNumber;
+
     // Start is called before the first frame update
     void Start()
     {
+        spawnManager = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>();
+        uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
 
+        enemyNumber = spawnManager.enemyNumber;
+        uiManager.SetEnemyNumber(enemyNumber);
     }
 
     // Update is called once per frame
@@ -17,18 +31,22 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void Quit()
+    public void StartBattle()
     {
-        Application.Quit();
+        gameState = GameState.Battle;
+        StartCoroutine(spawnManager.SpawnEnemies());
     }
 
-    public void ShowHelp()
+    public void DecrementEnemyNumber()
     {
-        Debug.Log("Help");
-    }
-
-    public void StartGame()
-    {
-        SceneManager.LoadScene("Game");
+        --enemyNumber;
+        uiManager.SetEnemyNumber(enemyNumber);
+        if (enemyNumber <= 0)
+        {
+            gameState = GameState.Preparation;
+            uiManager.EndBattle();
+            spawnManager.GenerateWave();
+            enemyNumber = spawnManager.enemyNumber;
+        }
     }
 }
