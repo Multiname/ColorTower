@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private enum GameState
+    public enum GameState
     {
         Preparation,
         Battle
     }
 
-    private GameState gameState = GameState.Preparation;
+    public GameState gameState = GameState.Preparation;
+
     private EnemyManager enemyManager;
     private UIManager uiManager;
     private int enemyNumber;
