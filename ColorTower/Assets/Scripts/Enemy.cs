@@ -6,10 +6,12 @@ public class Enemy : MonoBehaviour
 {
     private EnemyManager enemyManager;
     private GameManager gameManager;
+    private CoinManager coinManager;
     public int movesetNumber;
     private int movementStep = 0;
     public float speed = 5.0f;
     public int maxHealthPoints = 5;
+    public int coins = 1;
 
     public int healthPoints;
     public TypeManager.Type type;
@@ -24,6 +26,7 @@ public class Enemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
 
         Transform child = transform.GetChild(0);
         healthBarLength = child.transform;
@@ -45,6 +48,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Core"))
         {
             collision.gameObject.GetComponent<Core>().TakeDamage();
+            gameManager.DecrementEnemyNumber();
             Destroy(gameObject);
         }
     }
@@ -55,7 +59,10 @@ public class Enemy : MonoBehaviour
         if (healthPoints <= 0)
         {
             if (healthPoints == 0)
+            {
                 gameManager.DecrementEnemyNumber();
+                coinManager.ObtainCoins(coins);
+            }
             Destroy(gameObject);
         }
         else

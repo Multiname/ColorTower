@@ -6,13 +6,16 @@ public class TowerManager : MonoBehaviour
 {
     private List<GameObject> createdTowers = new();
     private TypeManager typeManager;
+    private CoinManager coinManager;
 
     public GameObject towerPrefab;
+    public int towerCost = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
     }
 
     // Update is called once per frame
@@ -27,5 +30,6 @@ public class TowerManager : MonoBehaviour
         GameObject createdTower = Instantiate(towerPrefab, towerPosition, towerPrefab.transform.rotation);
         typeManager.SetType(type, createdTower.GetComponent<Tower>());
         createdTowers.Add(createdTower);
+        coinManager.Pay(towerCost);
     }
 }

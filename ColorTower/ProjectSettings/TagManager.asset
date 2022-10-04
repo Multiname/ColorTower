@@ -13,6 +13,7 @@ TagManager:
   - SpawnManager
   - GameManager
   - UIManager
+  - CoinManager
   layers:
   - Default
   - TransparentFX

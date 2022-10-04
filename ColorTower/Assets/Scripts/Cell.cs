@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour
 
     private SelectionManager selectionManager;
     private GameManager gameManager;
+    private CoinManager coinManager;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class Cell : MonoBehaviour
         position = GetComponent<Transform>().position;
         selectionManager = GameObject.FindWithTag("SelectionManager").GetComponent<SelectionManager>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,10 @@ public class Cell : MonoBehaviour
     private void OnMouseEnter()
     {
         if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation)
-            spriteRenderer.color = Color.green;
+            if (coinManager.Coins <= 0)
+                spriteRenderer.color = Color.gray;
+            else
+                spriteRenderer.color = Color.green;
     }
 
     private void OnMouseExit()
@@ -40,7 +45,7 @@ public class Cell : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation)
+        if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation && coinManager.Coins > 0)
             selectionManager.Select(this);
     }
 }
