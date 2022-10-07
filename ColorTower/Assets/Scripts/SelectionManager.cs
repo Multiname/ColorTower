@@ -5,10 +5,11 @@ using UnityEngine;
 public class SelectionManager : MonoBehaviour
 {
     private GameObject createdInterface;
-    private Cell selectedCell;
+    private Selectable selected;
     private TowerManager towerManager;
 
     public GameObject towerPickingInterface;
+    public GameObject rangeVisualisation;
 
     // Start is called before the first frame update
     void Start()
@@ -22,36 +23,45 @@ public class SelectionManager : MonoBehaviour
         
     }
 
-    public void Select(Cell cell)
+    private void Select(Selectable selectable)
     {
-        if (selectedCell != null)
+        if (selected != null)
         {
             Destroy(createdInterface);
-            selectedCell.isSelected = false;
-            selectedCell.spriteRenderer.color = Color.white;
+            selected.CancelSelection();
         }
 
-        selectedCell = cell;
-        selectedCell.isSelected = true;
-        selectedCell.spriteRenderer.color = Color.blue;
-        Vector3 position = new(selectedCell.position.x, selectedCell.position.y, -1);
+        selected = selectable;
+        selected.Select();
+    }
+
+    public void SelectCell(Cell cell)
+    {
+        Select(cell);
+        Vector3 position = new(selected.position.x, selected.position.y, -1);
         createdInterface = Instantiate(towerPickingInterface, position, towerPickingInterface.transform.rotation);
+    }
+
+    public void SelectTower(Tower tower)
+    {
+        Select(tower);
+        Vector3 position = new(selected.position.x, selected.position.y, -1);
+        createdInterface = Instantiate(rangeVisualisation, position, rangeVisualisation.transform.rotation);
     }
 
     public void CancelSelection()
     {
-        if (selectedCell != null)
+        if (selected != null)
         {
             Destroy(createdInterface);
-            selectedCell.isSelected = false;
-            selectedCell.spriteRenderer.color = Color.white;
-            selectedCell = null;
+            selected.CancelSelection();
+            selected = null;
         }
     }
 
     public void PlaceTower(TypeManager.Type type)
     {
-        towerManager.PlaceTower(type, selectedCell.position);
+        towerManager.PlaceTower(type, selected.position);
         CancelSelection();
     }
 }

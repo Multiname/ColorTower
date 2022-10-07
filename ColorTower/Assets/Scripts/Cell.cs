@@ -2,24 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cell : MonoBehaviour
+public class Cell : Selectable
 {
-    public SpriteRenderer spriteRenderer;
-    public Vector3 position;
-    public bool isSelected = false;
-
-    private SelectionManager selectionManager;
     private GameManager gameManager;
-    private CoinManager coinManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        position = GetComponent<Transform>().position;
-        selectionManager = GameObject.FindWithTag("SelectionManager").GetComponent<SelectionManager>();
+        Initiate();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
+    }
+
+    public override void CancelSelection()
+    {
+        isSelected = false;
+        spriteRenderer.color = Color.white;
+    }
+
+    public override void Select()
+    {
+        isSelected = true;
+        spriteRenderer.color = Color.blue;
     }
 
     // Update is called once per frame
@@ -46,6 +49,6 @@ public class Cell : MonoBehaviour
     private void OnMouseDown()
     {
         if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation && coinManager.Coins > 0)
-            selectionManager.Select(this);
+            selectionManager.SelectCell(this);
     }
 }

@@ -736,6 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 9048872617896562319, guid: 8db7083c0e5541244a7981694c64e8d6, type: 3}
+  towerCost: 1
 --- !u!1001 &431532478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2224,6 +2225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPickingInterface: {fileID: 2876396584389878692, guid: 0dee284cca9d1ff4f809c1a79ca9cb99, type: 3}
+  rangeVisualisation: {fileID: 7448927361211284289, guid: b53b58f026245734aa862f539dc3b441, type: 3}
 --- !u!1001 &1007331835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2527,6 +2529,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 682631360288803615, guid: b3a85badabae7aa4499e0f9cd036f198, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3194667262655756303, guid: b3a85badabae7aa4499e0f9cd036f198, type: 3}
       propertyPath: maxHealthPoints
       value: 2
@@ -2797,8 +2803,8 @@ Transform:
   m_GameObject: {fileID: 1206378466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.5, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
@@ -4441,4 +4447,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aae392eab2f7c64ab3767068b50b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 3
