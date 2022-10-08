@@ -18,19 +18,26 @@ public class UIManager : MonoBehaviour
     public GameObject stageObject;
     public GameObject coinsObject;
     public GameObject startButtonObject;
+    public GameObject selectedTowerObject;
 
     private SpriteRenderer stage;
     private SpriteRenderer coins;
     private GameManager gameManager;
     private Button startButton;
+    private SpriteRenderer selectedTower;
+    private TypeManager typeManager;
 
     // Start is called before the first frame update
     void Awake()
     {
         stage = stageObject.GetComponent<SpriteRenderer>();
         coins = coinsObject.GetComponent<SpriteRenderer>();
+        selectedTower = selectedTowerObject.GetComponent<SpriteRenderer>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
         startButton = startButtonObject.GetComponent<Button>();
+
+        selectedTower.color = Color.gray;
     }
 
     // Update is called once per frame
@@ -60,5 +67,15 @@ public class UIManager : MonoBehaviour
     public void SetCoinsNumber(int number)
     {
         coins.color = coinsColors[number];
+    }
+
+    public void SelectTower(Tower tower)
+    {
+        selectedTower.color = typeManager.typeColors[(int)tower.weapon.type];
+    }
+
+    public void CancelSelection()
+    {
+        selectedTower.color = Color.gray;
     }
 }

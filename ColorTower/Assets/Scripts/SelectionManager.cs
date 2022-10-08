@@ -7,6 +7,7 @@ public class SelectionManager : MonoBehaviour
     private GameObject createdInterface;
     private Selectable selected;
     private TowerManager towerManager;
+    private UIManager uiManager;
 
     public GameObject towerPickingInterface;
     public GameObject rangeVisualisation;
@@ -15,6 +16,7 @@ public class SelectionManager : MonoBehaviour
     void Start()
     {
         towerManager = GameObject.FindWithTag("TowerManager").GetComponent<TowerManager>();
+        uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -47,6 +49,7 @@ public class SelectionManager : MonoBehaviour
         Select(tower);
         Vector3 position = new(selected.position.x, selected.position.y, -1);
         createdInterface = Instantiate(rangeVisualisation, position, rangeVisualisation.transform.rotation);
+        uiManager.SelectTower(tower);
     }
 
     public void CancelSelection()
@@ -56,6 +59,7 @@ public class SelectionManager : MonoBehaviour
             Destroy(createdInterface);
             selected.CancelSelection();
             selected = null;
+            uiManager.CancelSelection();
         }
     }
 

@@ -18,7 +18,7 @@ public class TypeManager : MonoBehaviour
         White
     }
 
-    private List<Color> typeColors = new() {
+    public readonly List<Color> typeColors = new() {
         Color.green, Color.yellow, Color.red, Color.blue,
         new Color(199, 234, 70), new Color(253, 106, 2), new Color(75, 0, 130), Color.cyan,
         Color.black, new Color(219, 241, 239)};
@@ -37,7 +37,7 @@ public class TypeManager : MonoBehaviour
 
     public void SetType(Type type, Tower tower)
     {
-        tower.transform.Find("Weapon").GetComponent<Weapon>().type = type;
+        tower.weapon.type = type;
         tower.spriteRenderer.color = typeColors[((int)type)];
     }
 

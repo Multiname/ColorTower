@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Tower : Selectable
 {
+    public Weapon weapon;
+
     // Start is called before the first frame update
     void Awake()
     {
         Initiate();
+        weapon = transform.Find("Weapon").GetComponent<Weapon>();
     }
 
     public override void CancelSelection()
