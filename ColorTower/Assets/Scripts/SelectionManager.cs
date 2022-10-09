@@ -40,7 +40,7 @@ public class SelectionManager : MonoBehaviour
     public void SelectCell(Cell cell)
     {
         Select(cell);
-        Vector3 position = new(selected.position.x, selected.position.y, -1);
+        Vector3 position = new(selected.position.x, selected.position.y, -4);
         createdInterface = Instantiate(towerPickingInterface, position, towerPickingInterface.transform.rotation);
     }
 
