@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    public int Coins { get; private set; } = 3;
+    public int coins = 3;
 
     private UIManager uiManager;
 
@@ -13,7 +13,7 @@ public class CoinManager : MonoBehaviour
     {
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
 
-        uiManager.SetCoinsNumber(Coins);
+        uiManager.SetCoinsNumber(coins);
     }
 
     // Update is called once per frame
@@ -24,13 +24,13 @@ public class CoinManager : MonoBehaviour
 
     public void Pay(int cost)
     {
-        Coins -= cost;
-        uiManager.SetCoinsNumber(Coins);
+        coins -= cost;
+        uiManager.SetCoinsNumber(coins);
     }
 
     public void ObtainCoins(int cost)
     {
-        Coins += cost;
-        uiManager.SetCoinsNumber(Coins);
+        coins += cost;
+        uiManager.SetCoinsNumber(coins);
     }
 }

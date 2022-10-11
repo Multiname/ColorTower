@@ -34,7 +34,7 @@ public class Cell : Selectable
     private void OnMouseEnter()
     {
         if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation)
-            if (coinManager.Coins <= 0)
+            if (coinManager.coins <= 0)
                 spriteRenderer.color = Color.gray;
             else
                 spriteRenderer.color = Color.green;
@@ -48,7 +48,7 @@ public class Cell : Selectable
 
     private void OnMouseDown()
     {
-        if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation && coinManager.Coins > 0)
+        if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation && coinManager.coins > 0)
             selectionManager.SelectCell(this);
     }
 }

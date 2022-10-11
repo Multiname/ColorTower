@@ -5,23 +5,12 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private List<Color> coinsColors = new()
-    {
-        Color.red,
-        Color.yellow,
-        Color.green,
-        Color.cyan,
-        Color.blue,
-        Color.magenta
-    };
-
     public GameObject stageObject;
-    public GameObject coinsObject;
     public GameObject startButtonObject;
     public GameObject selectedTowerObject;
+    public Text coinsNumber;
 
     private SpriteRenderer stage;
-    private SpriteRenderer coins;
     private GameManager gameManager;
     private Button startButton;
     private SpriteRenderer selectedTower;
@@ -31,7 +20,6 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         stage = stageObject.GetComponent<SpriteRenderer>();
-        coins = coinsObject.GetComponent<SpriteRenderer>();
         selectedTower = selectedTowerObject.GetComponent<SpriteRenderer>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
@@ -66,7 +54,7 @@ public class UIManager : MonoBehaviour
 
     public void SetCoinsNumber(int number)
     {
-        coins.color = coinsColors[number];
+        coinsNumber.text = number.ToString();
     }
 
     public void SelectTower(Tower tower)
