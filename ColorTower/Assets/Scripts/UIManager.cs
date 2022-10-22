@@ -44,6 +44,11 @@ public class UIManager : MonoBehaviour
         startButton.interactable = false;
         stage.color = Color.red;
         gameManager.StartBattle();
+        if (selectedTower != null)
+        {
+            UpdateDamageUpgradeButton();
+            UpdateRangeUpgradeButton();
+        }
     }
 
     public void SetEnemyNumber(int enemyNumber)
@@ -55,6 +60,11 @@ public class UIManager : MonoBehaviour
     {
         startButton.interactable = true;
         stage.color = Color.yellow;
+        if (selectedTower != null)
+        {
+            UpdateDamageUpgradeButton();
+            UpdateRangeUpgradeButton();
+        }
     }
 
     public void SetCoinsNumber(int number)
@@ -62,7 +72,7 @@ public class UIManager : MonoBehaviour
         coinsNumber.text = number.ToString();
     }
 
-    private void UpdateDamageUpgradeButton(Tower tower)
+    private void UpdateDamageUpgradeButton()
     {
         selectedTowerDamage.text = selectedTower.weapon.damage.ToString();
         int damageUpgradeCost = coinManager.CalculateTowerDamageUpgradeCost(selectedTower.weapon.damage);
@@ -70,7 +80,7 @@ public class UIManager : MonoBehaviour
         towerDamageUpgradeButton.interactable = (coinManager.coins >= damageUpgradeCost) && gameManager.gameState == GameManager.GameState.Preparation;
     }
 
-    private void UpdateRangeUpgradeButton(Tower tower)
+    private void UpdateRangeUpgradeButton()
     {
         selectedTowerRange.text = selectedTower.range.ToString();
         int rangeUpgrade = coinManager.CalculateTowerRangeUpgradeCost(selectedTower.range);
@@ -85,8 +95,8 @@ public class UIManager : MonoBehaviour
         selectedTowerSprite.color = typeManager.typeColors[(int)selectedTower.weapon.type];
         selectedTowerDamageIncrease.text = "+1";
 
-        UpdateDamageUpgradeButton(selectedTower);
-        UpdateRangeUpgradeButton(selectedTower);
+        UpdateDamageUpgradeButton();
+        UpdateRangeUpgradeButton();
     }
 
     public void CancelTowerSelection()
@@ -109,12 +119,12 @@ public class UIManager : MonoBehaviour
     public void UpgradeDamage()
     {
         coinManager.UpgradeTowerDamage(selectedTower.weapon);
-        UpdateDamageUpgradeButton(selectedTower);
+        UpdateDamageUpgradeButton();
     }
 
     public void UpgradeRange()
     {
         coinManager.UpgradeTowerRange(selectedTower);
-        UpdateRangeUpgradeButton(selectedTower);
+        UpdateRangeUpgradeButton();
     }
 }
