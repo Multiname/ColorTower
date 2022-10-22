@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tower : Selectable
 {
     public Weapon weapon;
+    public int range = 1;
 
     // Start is called before the first frame update
     void Awake()
@@ -53,11 +54,5 @@ public class Tower : Selectable
             transform.localScale = new(1, 1, 1);
             transform.position = position;
         }
-    }
-
-    private void OnMouseDown()
-    {
-        if (!isSelected)
-            selectionManager.SelectTower(this);
     }
 }

@@ -5,27 +5,32 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject stageObject;
-    public GameObject startButtonObject;
-    public GameObject selectedTowerObject;
     public Text coinsNumber;
+    public Text selectedTowerDamage;
+    public Text selectedTowerDamageIncrease;
+    public Text selectedTowerRange;
+    public Button towerDamageUpgradeButton;
+    public Text towerDamageUpgradeText;
+    public Button towerRangeUpgradeButton;
+    public Text towerRangeUpgradeText;
+    public SpriteRenderer stage;
+    public Button startButton;
+    public SpriteRenderer selectedTowerSprite;
 
-    private SpriteRenderer stage;
-    private GameManager gameManager;
-    private Button startButton;
-    private SpriteRenderer selectedTower;
     private TypeManager typeManager;
+    private GameManager gameManager;
+    private CoinManager coinManager;
+
+    private Tower selectedTower = null;
 
     // Start is called before the first frame update
     void Awake()
     {
-        stage = stageObject.GetComponent<SpriteRenderer>();
-        selectedTower = selectedTowerObject.GetComponent<SpriteRenderer>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
-        startButton = startButtonObject.GetComponent<Button>();
+        coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
 
-        selectedTower.color = Color.gray;
+        selectedTowerSprite.color = Color.gray;
     }
 
     // Update is called once per frame
@@ -57,13 +62,59 @@ public class UIManager : MonoBehaviour
         coinsNumber.text = number.ToString();
     }
 
-    public void SelectTower(Tower tower)
+    private void UpdateDamageUpgradeButton(Tower tower)
     {
-        selectedTower.color = typeManager.typeColors[(int)tower.weapon.type];
+        selectedTowerDamage.text = selectedTower.weapon.damage.ToString();
+        int damageUpgradeCost = coinManager.CalculateTowerDamageUpgradeCost(selectedTower.weapon.damage);
+        towerDamageUpgradeText.text = damageUpgradeCost.ToString();
+        towerDamageUpgradeButton.interactable = (coinManager.coins >= damageUpgradeCost) && gameManager.gameState == GameManager.GameState.Preparation;
     }
 
-    public void CancelSelection()
+    private void UpdateRangeUpgradeButton(Tower tower)
     {
-        selectedTower.color = Color.gray;
+        selectedTowerRange.text = selectedTower.range.ToString();
+        int rangeUpgrade = coinManager.CalculateTowerRangeUpgradeCost(selectedTower.range);
+        towerRangeUpgradeText.text = rangeUpgrade.ToString();
+        towerRangeUpgradeButton.interactable = (coinManager.coins >= rangeUpgrade) && gameManager.gameState == GameManager.GameState.Preparation;
+    }
+
+    public void SelectTower(Tower tower)
+    {
+        selectedTower = tower;
+
+        selectedTowerSprite.color = typeManager.typeColors[(int)selectedTower.weapon.type];
+        selectedTowerDamageIncrease.text = "+1";
+
+        UpdateDamageUpgradeButton(selectedTower);
+        UpdateRangeUpgradeButton(selectedTower);
+    }
+
+    public void CancelTowerSelection()
+    {
+        if (selectedTower == null)
+            return;
+
+        selectedTowerSprite.color = Color.gray;
+        selectedTowerDamage.text = "";
+        selectedTowerRange.text = "";
+        selectedTowerDamageIncrease.text = "";
+        towerDamageUpgradeText.text = "";
+        towerRangeUpgradeText.text = "";
+        towerDamageUpgradeButton.interactable = false;
+        towerRangeUpgradeButton.interactable = false;
+
+        selectedTower = null;
+    }
+
+    public void UpgradeDamage()
+    {
+        coinManager.UpgradeTowerDamage(selectedTower.weapon);
+        UpdateDamageUpgradeButton(selectedTower);
+    }
+
+    public void UpgradeRange()
+    {
+        coinManager.UpgradeTowerRange(selectedTower);
+        UpdateRangeUpgradeButton(selectedTower);
     }
 }

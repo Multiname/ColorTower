@@ -45,10 +45,4 @@ public class Cell : Selectable
         if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation)
             spriteRenderer.color = Color.white;
     }
-
-    private void OnMouseDown()
-    {
-        if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation && coinManager.coins > 0)
-            selectionManager.SelectCell(this);
-    }
 }

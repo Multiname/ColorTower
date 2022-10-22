@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 36388697729433266}
   m_Layer: 0
   m_Name: BlueTowerPicker
-  m_TagString: Untagged
+  m_TagString: TowerPicker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8369508250677596410}
   m_Layer: 0
   m_Name: RedTowerPicker
-  m_TagString: Untagged
+  m_TagString: TowerPicker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 9169737547153454052}
   m_Layer: 0
   m_Name: YellowTowerPicker
-  m_TagString: Untagged
+  m_TagString: TowerPicker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 5254977697627420215}
   m_Layer: 0
   m_Name: GreenTowerPicker
-  m_TagString: Untagged
+  m_TagString: TowerPicker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

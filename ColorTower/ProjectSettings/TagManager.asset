@@ -14,6 +14,9 @@ TagManager:
   - GameManager
   - UIManager
   - CoinManager
+  - Cell
+  - Tower
+  - TowerPicker
   layers:
   - Default
   - TransparentFX

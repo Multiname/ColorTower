@@ -19,9 +19,4 @@ public class TowerPicker : MonoBehaviour
     {
         
     }
-
-    private void OnMouseDown()
-    {
-        selectionManager.PlaceTower(type);
-    }
 }

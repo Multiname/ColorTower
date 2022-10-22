@@ -33,4 +33,26 @@ public class CoinManager : MonoBehaviour
         coins += cost;
         uiManager.SetCoinsNumber(coins);
     }
+
+    public int CalculateTowerDamageUpgradeCost(int currentDamage)
+    {
+        return currentDamage + 1;
+    }
+
+    public int CalculateTowerRangeUpgradeCost(int currentRange)
+    {
+        return currentRange * 10;
+    }
+
+    public void UpgradeTowerDamage(Weapon weapon)
+    {
+        Pay(CalculateTowerDamageUpgradeCost(weapon.damage));
+        ++weapon.damage;
+    }
+
+    public void UpgradeTowerRange(Tower tower)
+    {
+        Pay(CalculateTowerRangeUpgradeCost(tower.range));
+        ++tower.range;
+    }
 }
