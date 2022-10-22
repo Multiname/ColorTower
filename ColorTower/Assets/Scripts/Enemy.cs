@@ -58,11 +58,8 @@ public class Enemy : MonoBehaviour
         healthPoints -= damage;
         if (healthPoints <= 0)
         {
-            if (healthPoints == 0)
-            {
-                gameManager.DecrementEnemyNumber();
-                coinManager.ObtainCoins(coins);
-            }
+            gameManager.DecrementEnemyNumber();
+            coinManager.ObtainCoins(coins);
             Destroy(gameObject);
         }
         else
