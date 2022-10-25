@@ -16,10 +16,15 @@ public class UIManager : MonoBehaviour
     public SpriteRenderer stage;
     public Button startButton;
     public SpriteRenderer selectedTowerSprite;
+    public Text enemyNumberText;
+
+    public SpriteRenderer[] enemyGroups = new SpriteRenderer[3];
+    public Text[] enemyGroupTexts = new Text[3];
 
     private TypeManager typeManager;
     private GameManager gameManager;
     private CoinManager coinManager;
+    private EnemyManager enemyManager;
 
     private Tower selectedTower = null;
 
@@ -29,6 +34,7 @@ public class UIManager : MonoBehaviour
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
         coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
+        enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
 
         selectedTowerSprite.color = Color.gray;
     }
@@ -53,7 +59,23 @@ public class UIManager : MonoBehaviour
 
     public void SetEnemyNumber(int enemyNumber)
     {
+        enemyNumberText.text = enemyNumber.ToString();
+    }
 
+    public void SetEnemyGroups()
+    {
+        for (int i = 0; i < 3; ++i)
+            if (enemyManager.enemyNumber[i] > 0)
+            {
+                enemyGroups[i].enabled = true;
+                enemyGroups[i].color = typeManager.typeColors[(int)enemyManager.currentEnemyType[i]];
+                enemyGroupTexts[i].text = enemyManager.enemyNumber[i].ToString();
+            }
+            else
+            {
+                enemyGroups[i].enabled = false;
+                enemyGroupTexts[i].text = "";
+            }
     }
 
     public void EndBattle()

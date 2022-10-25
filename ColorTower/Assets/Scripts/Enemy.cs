@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public int movesetNumber;
     private int movementStep = 0;
     public float speed = 5.0f;
-    public int maxHealthPoints = 5;
+    public int maxHealthPoints;
     public int coins = 1;
 
     public int healthPoints;

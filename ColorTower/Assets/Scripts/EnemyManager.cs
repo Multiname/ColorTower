@@ -39,18 +39,23 @@ public class EnemyManager : MonoBehaviour
     };
 
     public GameObject enemyPrefab;
-    public TypeManager.Type currentEnemyType;
-    public int enemyNumber = 5;
+    public TypeManager.Type[] currentEnemyType;
+    public int[] enemyNumber;
+    public int enemyHealthPoints = 5;
     public float spawnInterval = 1;
 
     private TypeManager typeManager;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        currentEnemyType = new TypeManager.Type[3];
+        enemyNumber = new int[3];
+        enemyNumber[0] = 5;
+        enemyNumber[1] = 0;
+        enemyNumber[2] = 0;
 
-        GenerateWave();
+        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
     }
 
     // Update is called once per frame
@@ -59,25 +64,28 @@ public class EnemyManager : MonoBehaviour
         
     }
 
-    public void GenerateWave()
+    public int GenerateWave()
     {
-        currentEnemyType = (TypeManager.Type)UnityEngine.Random.Range(0, 4);
+        for (int i = 0; i < 3; ++i)
+            currentEnemyType[i] = (TypeManager.Type)UnityEngine.Random.Range(0, 4);
+        return 5;
     }
 
     public IEnumerator SpawnEnemies()
     {
-        for (int i = 0; i < enemyNumber - 1; ++i)
-        {
-            SpawnEnemy();
-            yield return new WaitForSeconds(spawnInterval);
-        }
-        SpawnEnemy();
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < enemyNumber[i]; ++j)
+            {
+                SpawnEnemy(i);
+                yield return new WaitForSeconds(spawnInterval);
+            }
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(int enemyGroup)
     {
         Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
-        typeManager.SetType(currentEnemyType, enemy);
+        enemy.maxHealthPoints = enemyHealthPoints;
         enemy.movesetNumber = UnityEngine.Random.Range(0, 2);
+        typeManager.SetType(currentEnemyType[enemyGroup], enemy);
     }
 }

@@ -22,8 +22,7 @@ public class GameManager : MonoBehaviour
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
 
-        enemyNumber = enemyManager.enemyNumber;
-        uiManager.SetEnemyNumber(enemyNumber);
+        ReloadEnemyNumber();
     }
 
     // Update is called once per frame
@@ -46,8 +45,14 @@ public class GameManager : MonoBehaviour
         {
             gameState = GameState.Preparation;
             uiManager.EndBattle();
-            enemyManager.GenerateWave();
-            enemyNumber = enemyManager.enemyNumber;
+            ReloadEnemyNumber();
         }
+    }
+
+    private void ReloadEnemyNumber()
+    {
+        enemyNumber = enemyManager.GenerateWave();
+        uiManager.SetEnemyNumber(enemyNumber);
+        uiManager.SetEnemyGroups();
     }
 }
