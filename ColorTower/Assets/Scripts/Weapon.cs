@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     public TypeManager.Type type;
     public float cooldown = 1.0f;
     public int damage = 1;
+    public CircleCollider2D collider;
 
     private Vector3 position;
     private TypeManager typeManager;
@@ -19,6 +20,7 @@ public class Weapon : MonoBehaviour
         position = transform.parent.position;
         position.z = -1;
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        collider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame

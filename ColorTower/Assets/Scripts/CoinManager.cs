@@ -7,11 +7,13 @@ public class CoinManager : MonoBehaviour
     public int coins = 3;
 
     private UIManager uiManager;
+    private SelectionManager selectionManager;
 
     // Start is called before the first frame update
     void Start()
     {
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
+        selectionManager = GameObject.FindWithTag("SelectionManager").GetComponent<SelectionManager>();
 
         uiManager.SetCoinsNumber(coins);
     }
@@ -53,6 +55,9 @@ public class CoinManager : MonoBehaviour
     public void UpgradeTowerRange(Tower tower)
     {
         Pay(CalculateTowerRangeUpgradeCost(tower.range));
+        tower.weapon.collider.radius = 2.5f + tower.range * 0.8f;
         ++tower.range;
+        selectionManager.CancelSelection();
+        selectionManager.SelectTower(tower);
     }
 }

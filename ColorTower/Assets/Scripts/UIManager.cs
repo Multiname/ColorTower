@@ -105,6 +105,11 @@ public class UIManager : MonoBehaviour
     private void UpdateRangeUpgradeButton()
     {
         selectedTowerRange.text = selectedTower.range.ToString();
+        if (selectedTower.range >= 3)
+        {
+            towerRangeUpgradeButton.interactable = false;
+            return;
+        }
         int rangeUpgrade = coinManager.CalculateTowerRangeUpgradeCost(selectedTower.range);
         towerRangeUpgradeText.text = rangeUpgrade.ToString();
         towerRangeUpgradeButton.interactable = (coinManager.coins >= rangeUpgrade) && gameManager.gameState == GameManager.GameState.Preparation;
