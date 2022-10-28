@@ -58,8 +58,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int projectileDamage, TypeManager.Type projectileType)
     {
+        int damage = CalculateDamage(projectileDamage, projectileType);
         healthPoints -= damage;
         if (healthPoints <= 0)
         {
@@ -73,5 +74,18 @@ public class Enemy : MonoBehaviour
             healthBarSprite.enabled = true;
             healthBarLength.localScale -= scaleChange * damage;
         }
+    }
+
+    private int CalculateDamage(int damage, TypeManager.Type projectileType)
+    {
+        int projectileTypeNumber = (int)projectileType;
+        int enemyTypeNumber = (int)type;
+        if (Mathf.Abs(projectileTypeNumber / 4 - enemyTypeNumber / 4) != 0)
+            return 0;
+        if (enemyTypeNumber + projectileTypeNumber == 17)
+            return (int)(damage * 1.5f);
+
+        float gain = Mathf.Sin(enemyTypeNumber * Mathf.PI / 2 - projectileTypeNumber * Mathf.PI / 2) * damage * 0.5f;
+        return damage + (int)gain;
     }
 }

@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.transform == target)
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage, type);
             Destroy(gameObject);
         }
     }
