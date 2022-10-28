@@ -51,9 +51,8 @@ public class EnemyManager : MonoBehaviour
     {
         currentEnemyType = new TypeManager.Type[3];
         enemyNumber = new int[3];
-        enemyNumber[0] = 5;
-        enemyNumber[1] = 0;
-        enemyNumber[2] = 0;
+        for (int i = 0; i < 3; ++i)
+            enemyNumber[i] = 0;
 
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
     }
@@ -66,9 +65,25 @@ public class EnemyManager : MonoBehaviour
 
     public int GenerateWave()
     {
+        int enemyNumberSum = 0;
         for (int i = 0; i < 3; ++i)
+        {
             currentEnemyType[i] = (TypeManager.Type)UnityEngine.Random.Range(0, 4);
-        return 5;
+            enemyNumberSum += enemyNumber[i];
+        }
+
+        if (enemyNumberSum >= 30)
+        {
+            enemyHealthPoints += 5;
+
+            for (int i = 0; i < 3; ++i)
+                enemyNumber[i] = 0;
+            enemyNumberSum = 0;
+        }
+
+        enemyNumber[enemyNumberSum / 10] += 5;
+
+        return enemyNumberSum + 5;
     }
 
     public IEnumerator SpawnEnemies()
@@ -84,7 +99,7 @@ public class EnemyManager : MonoBehaviour
     private void SpawnEnemy(int enemyGroup)
     {
         Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
-        enemy.maxHealthPoints = enemyHealthPoints;
+        enemy.MaxHealthPoints = enemyHealthPoints;
         enemy.movesetNumber = UnityEngine.Random.Range(0, 2);
         typeManager.SetType(currentEnemyType[enemyGroup], enemy);
     }

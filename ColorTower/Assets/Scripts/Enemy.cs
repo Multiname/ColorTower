@@ -10,7 +10,13 @@ public class Enemy : MonoBehaviour
     public int movesetNumber;
     private int movementStep = 0;
     public float speed = 5.0f;
-    public int maxHealthPoints;
+    public int MaxHealthPoints {
+        set
+        {
+            healthPoints = value;
+            scaleChange = new(1.0f / value, 0, 0);
+        }
+    }
     public int coins = 1;
 
     public int healthPoints;
@@ -19,6 +25,7 @@ public class Enemy : MonoBehaviour
     private Transform healthBarLength;
     private SpriteRenderer healthBarSprite;
     private Vector3 scaleChange;
+    private 
 
     // Start is called before the first frame update
     void Awake()
@@ -31,9 +38,6 @@ public class Enemy : MonoBehaviour
         Transform child = transform.GetChild(0);
         healthBarLength = child.transform;
         healthBarSprite = child.GetComponent<SpriteRenderer>();
-        
-        healthPoints = maxHealthPoints;
-        scaleChange = new(1.0f / maxHealthPoints, 0, 0);
     }
 
     // Update is called once per frame
@@ -50,6 +54,7 @@ public class Enemy : MonoBehaviour
             collision.gameObject.GetComponent<Core>().TakeDamage();
             gameManager.DecrementEnemyNumber();
             Destroy(gameObject);
+            Destroy(this);
         }
     }
 
@@ -58,6 +63,7 @@ public class Enemy : MonoBehaviour
         healthPoints -= damage;
         if (healthPoints <= 0)
         {
+            Destroy(this);
             coinManager.ObtainCoins(coins);
             gameManager.DecrementEnemyNumber();
             Destroy(gameObject);
