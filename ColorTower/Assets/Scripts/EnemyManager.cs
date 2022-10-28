@@ -43,6 +43,7 @@ public class EnemyManager : MonoBehaviour
     public int[] enemyNumber;
     public int enemyHealthPoints = 5;
     public float spawnInterval = 1;
+    public int rewardCoins = 1;
 
     private TypeManager typeManager;
 
@@ -75,6 +76,7 @@ public class EnemyManager : MonoBehaviour
         if (enemyNumberSum >= 30)
         {
             enemyHealthPoints += 5;
+            rewardCoins += 1;
 
             for (int i = 0; i < 3; ++i)
                 enemyNumber[i] = 0;
@@ -102,5 +104,6 @@ public class EnemyManager : MonoBehaviour
         enemy.MaxHealthPoints = enemyHealthPoints;
         enemy.movesetNumber = UnityEngine.Random.Range(0, 2);
         typeManager.SetType(currentEnemyType[enemyGroup], enemy);
+        enemy.coins = rewardCoins;
     }
 }
