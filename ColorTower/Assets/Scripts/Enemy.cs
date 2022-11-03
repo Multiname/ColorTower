@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     private Transform healthBarLength;
     private SpriteRenderer healthBarSprite;
     private Vector3 scaleChange;
-    private 
+    private bool isAlive = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -64,7 +64,10 @@ public class Enemy : MonoBehaviour
         healthPoints -= damage;
         if (healthPoints <= 0)
         {
-            Destroy(this);
+            if (!isAlive)
+                return;
+            isAlive = false;
+
             coinManager.ObtainCoins(coins);
             gameManager.DecrementEnemyNumber();
             Destroy(gameObject);
