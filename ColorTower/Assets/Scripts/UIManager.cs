@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public Button startButton;
     public SpriteRenderer selectedTowerSprite;
     public Text enemyNumberText;
+    public Text waveNumber;
 
     public SpriteRenderer[] enemyGroups = new SpriteRenderer[3];
     public Text[] enemyGroupTexts = new Text[3];
@@ -153,5 +154,10 @@ public class UIManager : MonoBehaviour
     {
         coinManager.UpgradeTowerRange(selectedTower);
         UpdateRangeUpgradeButton();
+    }
+
+    public void SetWaveNumber(int number)
+    {
+        waveNumber.text = "Wave: " + number.ToString();
     }
 }

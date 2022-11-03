@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private EnemyManager enemyManager;
     private UIManager uiManager;
     private int enemyNumber;
+    private int waveNumber = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -37,16 +38,21 @@ public class GameManager : MonoBehaviour
         StartCoroutine(enemyManager.SpawnEnemies());
     }
 
+    private void EndBattle()
+    {
+        gameState = GameState.Preparation;
+        uiManager.EndBattle();
+        ReloadEnemyNumber();
+        ++waveNumber;
+        uiManager.SetWaveNumber(waveNumber);
+    }
+
     public void DecrementEnemyNumber()
     {
         --enemyNumber;
         uiManager.SetEnemyNumber(enemyNumber);
         if (enemyNumber <= 0)
-        {
-            gameState = GameState.Preparation;
-            uiManager.EndBattle();
-            ReloadEnemyNumber();
-        }
+            EndBattle();
     }
 
     private void ReloadEnemyNumber()
