@@ -20,8 +20,8 @@ public class TypeManager : MonoBehaviour
 
     public readonly List<Color> typeColors = new() {
         Color.green, Color.yellow, Color.red, Color.blue,
-        new Color(199, 234, 70), new Color(253, 106, 2), new Color(75, 0, 130), Color.cyan,
-        Color.black, new Color(219, 241, 239)};
+        new Color(0.68f, 0.84f, 0.03f), new Color(0.93f, 0.54f, 0.07f), new Color(0.8f, 0.12f, 0.69f), Color.cyan,
+        new Color(0.2f, 0.2f, 0.2f), new Color(0.8f, 0.8f, 0.8f)};
 
     // Start is called before the first frame update
     void Start()
@@ -35,21 +35,28 @@ public class TypeManager : MonoBehaviour
         
     }
 
-    public void SetType(Type type, Tower tower)
+    public void SetType(Type type, Tower tower, bool isOriginal)
     {
-        tower.weapon.type = type;
-        tower.spriteRenderer.color = typeColors[((int)type)];
+        if (isOriginal)
+            tower.weapon.originalType = type;
+        tower.weapon.currentType = type;
+        tower.spriteRenderer.color = typeColors[(int)type];
     }
 
     public void SetType(Type type, Enemy enemy)
     {
         enemy.type = type;
-        enemy.spriteRenderer.color = typeColors[((int)type)];
+        enemy.spriteRenderer.color = typeColors[(int)type];
     }
 
     public void SetType(Type type, Projectile projectile)
     {
         projectile.type = type;
-        projectile.SpriteRenderer.color = typeColors[((int)type)];
+        projectile.SpriteRenderer.color = typeColors[(int)type];
+    }
+
+    public void ColorConnection(SpriteRenderer connection, Type type)
+    {
+        connection.color = typeColors[(int)type] + new Color(0.1f, 0.1f, 0.1f);
     }
 }

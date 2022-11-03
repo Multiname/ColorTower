@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
     {
         selectedTower = tower;
 
-        selectedTowerSprite.color = typeManager.typeColors[(int)selectedTower.weapon.type];
+        selectedTowerSprite.color = typeManager.typeColors[(int)selectedTower.weapon.currentType];
         selectedTowerDamageIncrease.text = "+1";
 
         UpdateDamageUpgradeButton();

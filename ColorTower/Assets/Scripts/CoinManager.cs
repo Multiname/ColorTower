@@ -55,7 +55,7 @@ public class CoinManager : MonoBehaviour
     public void UpgradeTowerRange(Tower tower)
     {
         Pay(CalculateTowerRangeUpgradeCost(tower.range));
-        tower.weapon.collider.radius = 2.5f + tower.range * 0.8f;
+        tower.weapon.rangeCollider.radius = 2.5f + tower.range * 0.8f;
         ++tower.range;
         selectionManager.CancelSelection();
         selectionManager.SelectTower(tower);

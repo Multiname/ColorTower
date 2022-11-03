@@ -3092,6 +3092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPickingInterface: {fileID: 2876396584389878692, guid: 0dee284cca9d1ff4f809c1a79ca9cb99, type: 3}
   rangeVisualisation: {fileID: 7448927361211284289, guid: b53b58f026245734aa862f539dc3b441, type: 3}
+  connectionVisualisation: {fileID: 6366935699272189097, guid: 5a4cfdeb6d7553a408b9163dce2099fd, type: 3}
   coinManager: {fileID: 2119317799}
   gameManager: {fileID: 741772966}
 --- !u!1 &1006416111

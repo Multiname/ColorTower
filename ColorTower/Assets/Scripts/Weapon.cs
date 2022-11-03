@@ -5,10 +5,11 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    public TypeManager.Type type;
+    public TypeManager.Type originalType;
+    public TypeManager.Type currentType;
     public float cooldown = 1.0f;
     public int damage = 1;
-    public CircleCollider2D collider;
+    public CircleCollider2D rangeCollider;
 
     private Vector3 position;
     private TypeManager typeManager;
@@ -20,7 +21,7 @@ public class Weapon : MonoBehaviour
         position = transform.parent.position;
         position.z = -1;
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
-        collider = GetComponent<CircleCollider2D>();
+        rangeCollider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -57,6 +58,6 @@ public class Weapon : MonoBehaviour
         projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, targets.Peek().position - projectile.transform.position);
         projectile.transform.Rotate(Vector3.forward, 90);
         projectile.damage = damage;
-        typeManager.SetType(type, projectile);
+        typeManager.SetType(currentType, projectile);
     }
 }

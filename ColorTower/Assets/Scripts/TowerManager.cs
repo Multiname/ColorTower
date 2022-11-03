@@ -28,7 +28,7 @@ public class TowerManager : MonoBehaviour
     {
         Vector3 towerPosition = new(cellPosition.x, cellPosition.y, 0);
         GameObject createdTower = Instantiate(towerPrefab, towerPosition, towerPrefab.transform.rotation);
-        typeManager.SetType(type, createdTower.GetComponent<Tower>());
+        typeManager.SetType(type, createdTower.GetComponent<Tower>(), true);
         createdTowers.Add(createdTower);
         coinManager.Pay(towerCost);
     }

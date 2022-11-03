@@ -6,6 +6,8 @@ public class Tower : Selectable
 {
     public Weapon weapon;
     public int range = 1;
+    public Tower connectedWith = null;
+    public GameObject connection = null;
 
     // Start is called before the first frame update
     void Awake()
