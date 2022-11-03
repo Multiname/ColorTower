@@ -69,7 +69,7 @@ public class EnemyManager : MonoBehaviour
         int enemyNumberSum = 0;
         for (int i = 0; i < 3; ++i)
         {
-            currentEnemyType[i] = (TypeManager.Type)UnityEngine.Random.Range(0, 4);
+            currentEnemyType[i] = (TypeManager.Type)UnityEngine.Random.Range(0, 10);
             enemyNumberSum += enemyNumber[i];
         }
 
