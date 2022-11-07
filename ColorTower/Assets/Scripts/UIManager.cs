@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
     public SpriteRenderer selectedTowerSprite;
     public Text enemyNumberText;
     public Text waveNumber;
+    public GameObject gameOverWindowPrefab;
 
     public SpriteRenderer[] enemyGroups = new SpriteRenderer[3];
     public Text[] enemyGroupTexts = new Text[3];
@@ -159,5 +161,19 @@ public class UIManager : MonoBehaviour
     public void SetWaveNumber(int number)
     {
         waveNumber.text = "Wave: " + number.ToString();
+    }
+
+    public void ShowGameOverWindow(int finalWaveNumber)
+    {
+        GameObject gameOverWindow = Instantiate(gameOverWindowPrefab);
+        Transform canvas = gameOverWindow.transform.GetChild(0);
+        canvas.GetComponent<Canvas>().worldCamera = Camera.main;
+        canvas.GetChild(2).GetComponent<Text>().text = finalWaveNumber.ToString();
+        canvas.GetChild(3).GetComponent<Button>().onClick.AddListener(ReturnToMenu);
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

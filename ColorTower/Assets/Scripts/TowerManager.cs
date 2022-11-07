@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
-    private List<GameObject> createdTowers = new();
+    private List<Tower> createdTowers = new();
     private TypeManager typeManager;
     private CoinManager coinManager;
 
@@ -27,9 +27,18 @@ public class TowerManager : MonoBehaviour
     public void PlaceTower(TypeManager.Type type, Vector3 cellPosition)
     {
         Vector3 towerPosition = new(cellPosition.x, cellPosition.y, 0);
-        GameObject createdTower = Instantiate(towerPrefab, towerPosition, towerPrefab.transform.rotation);
-        typeManager.SetType(type, createdTower.GetComponent<Tower>(), true);
-        createdTowers.Add(createdTower);
+        Tower createdTower = Instantiate(towerPrefab, towerPosition, towerPrefab.transform.rotation).GetComponent<Tower>();
         coinManager.Pay(towerCost);
+        typeManager.SetType(type, createdTower, true);
+        createdTowers.Add(createdTower);
+    }
+
+    public void StopTowers()
+    {
+        foreach (Tower tower in createdTowers)
+        {
+            Destroy(tower.weapon);
+            Destroy(tower);
+        }
     }
 }

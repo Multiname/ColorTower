@@ -2500,6 +2500,7 @@ MonoBehaviour:
   selectedTowerSprite: {fileID: 466090810}
   enemyNumberText: {fileID: 169491066}
   waveNumber: {fileID: 1555859249}
+  gameOverWindowPrefab: {fileID: 3570835327990654880, guid: 53fcc528530991441b17a702b23d1893, type: 3}
   enemyGroups:
   - {fileID: 1203207785}
   - {fileID: 1503109649}
@@ -3485,7 +3486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194667262655756303, guid: b3a85badabae7aa4499e0f9cd036f198, type: 3}
       propertyPath: maxHealthPoints
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3a85badabae7aa4499e0f9cd036f198, type: 3}

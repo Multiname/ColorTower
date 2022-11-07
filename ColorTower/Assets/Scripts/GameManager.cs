@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private EnemyManager enemyManager;
     private UIManager uiManager;
+    private TowerManager towerManager;
+    private SelectionManager selectionManager;
     private int enemyNumber;
     private int waveNumber = 1;
 
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
     {
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
+        towerManager = GameObject.FindWithTag("TowerManager").GetComponent<TowerManager>();
+        selectionManager = GameObject.FindWithTag("SelectionManager").GetComponent<SelectionManager>();
 
         ReloadEnemyNumber();
     }
@@ -60,5 +64,13 @@ public class GameManager : MonoBehaviour
         enemyNumber = enemyManager.GenerateWave();
         uiManager.SetEnemyNumber(enemyNumber);
         uiManager.SetEnemyGroups();
+    }
+
+    public void EndGame()
+    {
+        enemyManager.StopEnemies();
+        towerManager.StopTowers();
+        Destroy(selectionManager);
+        uiManager.ShowGameOverWindow(waveNumber - 1);
     }
 }

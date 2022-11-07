@@ -46,6 +46,7 @@ public class EnemyManager : MonoBehaviour
     public int rewardCoins = 1;
 
     private TypeManager typeManager;
+    private List<Enemy> enemies = new();
 
     // Start is called before the first frame update
     void Awake()
@@ -105,5 +106,14 @@ public class EnemyManager : MonoBehaviour
         enemy.movesetNumber = UnityEngine.Random.Range(0, 2);
         typeManager.SetType(currentEnemyType[enemyGroup], enemy);
         enemy.coins = rewardCoins;
+
+        enemies.Add(enemy);
+    }
+
+    public void StopEnemies()
+    {
+        StopCoroutine(SpawnEnemies());
+        foreach (Enemy enemy in enemies)
+            Destroy(enemy);
     }
 }

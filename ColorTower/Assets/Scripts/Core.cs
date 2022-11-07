@@ -15,6 +15,7 @@ public class Core : MonoBehaviour
     public int maxHealthPoints = 4;
 
     private SpriteRenderer spriteRenderer;
+    private GameManager gameManager;
     public int healthPoints;
 
     // Start is called before the first frame update
@@ -24,6 +25,8 @@ public class Core : MonoBehaviour
 
         healthPoints = maxHealthPoints;
         spriteRenderer.color = healthPointsColors[healthPoints - 1];
+
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -36,7 +39,10 @@ public class Core : MonoBehaviour
     {
         --healthPoints;
         if (healthPoints <= 0)
+        {
+            gameManager.EndGame();
             Destroy(gameObject);
+        }
         else
             spriteRenderer.color = healthPointsColors[healthPoints - 1];
     }
