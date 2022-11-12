@@ -3954,7 +3954,7 @@ MonoBehaviour:
   currentEnemyType: 
   enemyNumber: 
   enemyHealthPoints: 5
-  spawnInterval: 1
+  spawnInterval: 1.3
   rewardCoins: 1
 --- !u!1001 &1273560966
 PrefabInstance:
@@ -5333,6 +5333,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3e0993b795fd3418211b5735ce114e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyAOCs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &1890926089
 PrefabInstance:
   m_ObjectHideFlags: 0

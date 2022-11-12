@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     public int healthPoints;
     public TypeManager.Type type;
     public SpriteRenderer spriteRenderer;
+    public Animator animator;
     private Transform healthBarLength;
     private SpriteRenderer healthBarSprite;
     private Vector3 scaleChange;
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
