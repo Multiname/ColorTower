@@ -93,7 +93,7 @@ public class SelectionManager : MonoBehaviour
         selectedTower.connectedWith = secondTower;
         secondTower.connectedWith = selectedTower;
         selectedTower.connection = Instantiate(connectionVisualisation,
-            (selectedTower.position + secondTower.position) / 2,
+            (selectedTower.position + secondTower.position) / 2 + Vector3.forward,
             Quaternion.LookRotation(Vector3.forward, selectedTower.position - secondTower.position));
         secondTower.connection = selectedTower.connection;
         typeManager.ColorConnection(selectedTower.connection.GetComponent<SpriteRenderer>(), resultType);

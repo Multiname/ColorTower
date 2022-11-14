@@ -25,6 +25,7 @@ public class TypeManager : MonoBehaviour
 
     public Sprite[] enemySprites = new Sprite[10];
     public Sprite[] towerSprites = new Sprite[10];
+    public Sprite[] connectionSprites = new Sprite[6];
     public AnimatorOverrideController[] enemyAOCs = new AnimatorOverrideController[10];
 
     private void Awake()
@@ -50,6 +51,13 @@ public class TypeManager : MonoBehaviour
         towerSprites[7] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_azure");
         towerSprites[8] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_black");
         towerSprites[9] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_white");
+
+        connectionSprites[0] = Resources.Load<Sprite>("Sprites/Link/sprite_link_lime");
+        connectionSprites[1] = Resources.Load<Sprite>("Sprites/Link/sprite_link_brown");
+        connectionSprites[2] = Resources.Load<Sprite>("Sprites/Link/sprite_link_purple");
+        connectionSprites[3] = Resources.Load<Sprite>("Sprites/Link/sprite_link_azure");
+        connectionSprites[4] = Resources.Load<Sprite>("Sprites/Link/sprite_link_black");
+        connectionSprites[5] = Resources.Load<Sprite>("Sprites/Link/sprite_link_white");
 
         enemyAOCs[0] = Resources.Load<AnimatorOverrideController>("Animations/Enemy/aoc_enemy_green");
         enemyAOCs[1] = Resources.Load<AnimatorOverrideController>("Animations/Enemy/aoc_enemy_yellow");
@@ -99,6 +107,6 @@ public class TypeManager : MonoBehaviour
 
     public void ColorConnection(SpriteRenderer connection, Type type)
     {
-        connection.color = typeColors[(int)type] + new Color(0.1f, 0.1f, 0.1f);
+        connection.sprite = connectionSprites[(int)type - 4];
     }
 }
