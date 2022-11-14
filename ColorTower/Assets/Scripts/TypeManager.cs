@@ -40,16 +40,16 @@ public class TypeManager : MonoBehaviour
         enemySprites[8] = Resources.Load<Sprite>("Sprites/Enemy/sprite_enemy_black");
         enemySprites[9] = Resources.Load<Sprite>("Sprites/Enemy/sprite_enemy_white");
 
-        enemySprites[0] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_green");
-        enemySprites[1] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_yellow");
-        enemySprites[2] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_red");
-        enemySprites[3] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_blue");
-        enemySprites[4] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_lime");
-        enemySprites[5] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_brown");
-        enemySprites[6] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_purple");
-        enemySprites[7] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_azure");
-        enemySprites[8] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_black");
-        enemySprites[9] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_white");
+        towerSprites[0] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_green");
+        towerSprites[1] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_yellow");
+        towerSprites[2] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_red");
+        towerSprites[3] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_blue");
+        towerSprites[4] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_lime");
+        towerSprites[5] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_brown");
+        towerSprites[6] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_purple");
+        towerSprites[7] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_azure");
+        towerSprites[8] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_black");
+        towerSprites[9] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_white");
 
         enemyAOCs[0] = Resources.Load<AnimatorOverrideController>("Animations/Enemy/aoc_enemy_green");
         enemyAOCs[1] = Resources.Load<AnimatorOverrideController>("Animations/Enemy/aoc_enemy_yellow");
@@ -80,7 +80,7 @@ public class TypeManager : MonoBehaviour
         if (isOriginal)
             tower.weapon.originalType = type;
         tower.weapon.currentType = type;
-        tower.spriteRenderer.sprite = enemySprites[(int)type];
+        tower.spriteRenderer.sprite = towerSprites[(int)type];
     }
 
     public void SetType(Type type, Enemy enemy)
