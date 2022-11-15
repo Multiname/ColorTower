@@ -5,24 +5,26 @@ using UnityEngine;
 public class Cell : Selectable
 {
     private GameManager gameManager;
+    private TypeManager typeManager;
 
     // Start is called before the first frame update
     void Start()
     {
         Initiate();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
     }
 
     public override void CancelSelection()
     {
         isSelected = false;
-        spriteRenderer.color = Color.white;
+        spriteRenderer.sprite = typeManager.unselectedCellSprite;
     }
 
     public override void Select()
     {
         isSelected = true;
-        spriteRenderer.color = Color.blue;
+        spriteRenderer.sprite = typeManager.selectedCellSprite;
     }
 
     // Update is called once per frame
@@ -35,14 +37,14 @@ public class Cell : Selectable
     {
         if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation)
             if (coinManager.coins <= 0)
-                spriteRenderer.color = Color.gray;
+                spriteRenderer.sprite = typeManager.blockedCellSprite;
             else
-                spriteRenderer.color = Color.green;
+                spriteRenderer.sprite = typeManager.hoveredCellSprite;
     }
 
     private void OnMouseExit()
     {
         if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation)
-            spriteRenderer.color = Color.white;
+            spriteRenderer.sprite = typeManager.unselectedCellSprite;
     }
 }

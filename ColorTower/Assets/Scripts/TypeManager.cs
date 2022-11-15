@@ -23,6 +23,11 @@ public class TypeManager : MonoBehaviour
         new Color(0.68f, 0.84f, 0.03f), new Color(0.93f, 0.54f, 0.07f), new Color(0.8f, 0.12f, 0.69f), Color.cyan,
         new Color(0.2f, 0.2f, 0.2f), new Color(0.8f, 0.8f, 0.8f)};
 
+    public Sprite unselectedCellSprite;
+    public Sprite hoveredCellSprite;
+    public Sprite selectedCellSprite;
+    public Sprite blockedCellSprite;
+
     public Sprite[] enemySprites = new Sprite[10];
     public Sprite[] towerSprites = new Sprite[10];
     public Sprite[] projectileSprites = new Sprite[10];
@@ -32,6 +37,11 @@ public class TypeManager : MonoBehaviour
 
     private void Awake()
     {
+        unselectedCellSprite = Resources.Load<Sprite>("Sprites/Cell/sprite_cell_unselected");
+        hoveredCellSprite = Resources.Load<Sprite>("Sprites/Cell/sprite_cell_hover");
+        selectedCellSprite = Resources.Load<Sprite>("Sprites/Cell/sprite_cell_selected");
+        blockedCellSprite = Resources.Load<Sprite>("Sprites/Cell/sprite_cell_blocked");
+
         enemySprites[0] = Resources.Load<Sprite>("Sprites/Enemy/sprite_enemy_green");
         enemySprites[1] = Resources.Load<Sprite>("Sprites/Enemy/sprite_enemy_yellow");
         enemySprites[2] = Resources.Load<Sprite>("Sprites/Enemy/sprite_enemy_red");
