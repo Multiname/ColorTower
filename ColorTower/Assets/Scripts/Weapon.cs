@@ -55,8 +55,6 @@ public class Weapon : MonoBehaviour
         Projectile projectile = Instantiate(projectilePrefab, position,
             Quaternion.identity).GetComponent<Projectile>();
         projectile.target = targets.Peek();
-        projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, targets.Peek().position - projectile.transform.position);
-        projectile.transform.Rotate(Vector3.forward, 90);
         projectile.damage = damage;
         typeManager.SetType(currentType, projectile);
     }

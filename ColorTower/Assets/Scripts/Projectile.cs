@@ -5,15 +5,17 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public TypeManager.Type type;
-    public SpriteRenderer SpriteRenderer { get; private set; }
+    public SpriteRenderer spriteRenderer { get; private set; }
     public float speed = 5.0f;
     public Transform target;
     public int damage;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Awake()
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -23,9 +25,9 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         else
         {
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
             transform.rotation = Quaternion.LookRotation(Vector3.forward, target.position - transform.position);
             transform.Rotate(Vector3.forward, 90);
+            transform.Translate(Vector3.right * Time.deltaTime * speed);
         }
     }
 

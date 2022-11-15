@@ -25,8 +25,10 @@ public class TypeManager : MonoBehaviour
 
     public Sprite[] enemySprites = new Sprite[10];
     public Sprite[] towerSprites = new Sprite[10];
+    public Sprite[] projectileSprites = new Sprite[10];
     public Sprite[] connectionSprites = new Sprite[6];
     public AnimatorOverrideController[] enemyAOCs = new AnimatorOverrideController[10];
+    public AnimatorOverrideController[] projectileAOCs = new AnimatorOverrideController[10];
 
     private void Awake()
     {
@@ -52,6 +54,17 @@ public class TypeManager : MonoBehaviour
         towerSprites[8] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_black");
         towerSprites[9] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_white");
 
+        projectileSprites[0] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_green");
+        projectileSprites[1] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_yellow");
+        projectileSprites[2] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_red");
+        projectileSprites[3] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_blue");
+        projectileSprites[4] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_lime");
+        projectileSprites[5] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_brown");
+        projectileSprites[6] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_purple");
+        projectileSprites[7] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_azure");
+        projectileSprites[8] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_black");
+        projectileSprites[9] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_white");
+
         connectionSprites[0] = Resources.Load<Sprite>("Sprites/Link/sprite_link_lime");
         connectionSprites[1] = Resources.Load<Sprite>("Sprites/Link/sprite_link_brown");
         connectionSprites[2] = Resources.Load<Sprite>("Sprites/Link/sprite_link_purple");
@@ -69,6 +82,17 @@ public class TypeManager : MonoBehaviour
         enemyAOCs[7] = Resources.Load<AnimatorOverrideController>("Animations/Enemy/aoc_enemy_azure");
         enemyAOCs[8] = Resources.Load<AnimatorOverrideController>("Animations/Enemy/aoc_enemy_black");
         enemyAOCs[9] = Resources.Load<AnimatorOverrideController>("Animations/Enemy/aoc_enemy_white");
+
+        projectileAOCs[0] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_green");
+        projectileAOCs[1] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_yellow");
+        projectileAOCs[2] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_red");
+        projectileAOCs[3] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_blue");
+        projectileAOCs[4] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_lime");
+        projectileAOCs[5] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_brown");
+        projectileAOCs[6] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_purple");
+        projectileAOCs[7] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_azure");
+        projectileAOCs[8] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_black");
+        projectileAOCs[9] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_white");
     }
 
     // Start is called before the first frame update
@@ -102,7 +126,9 @@ public class TypeManager : MonoBehaviour
     public void SetType(Type type, Projectile projectile)
     {
         projectile.type = type;
-        projectile.SpriteRenderer.color = typeColors[(int)type];
+        int typeNumber = (int)type;
+        projectile.spriteRenderer.sprite = projectileSprites[typeNumber];
+        projectile.animator.runtimeAnimatorController = projectileAOCs[typeNumber];
     }
 
     public void ColorConnection(SpriteRenderer connection, Type type)

@@ -5355,6 +5355,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  projectileSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   connectionSprites:
   - {fileID: 0}
   - {fileID: 0}
@@ -5363,6 +5374,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   enemyAOCs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  projectileAOCs:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
