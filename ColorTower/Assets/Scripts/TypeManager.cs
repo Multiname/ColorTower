@@ -29,7 +29,7 @@ public class TypeManager : MonoBehaviour
     public Sprite blockedCellSprite;
 
     public Sprite[] enemySprites = new Sprite[10];
-    public Sprite[] towerSprites = new Sprite[10];
+    public Sprite[] towerSprites = new Sprite[11];
     public Sprite[] projectileSprites = new Sprite[10];
     public Sprite[] connectionSprites = new Sprite[6];
     public AnimatorOverrideController[] enemyAOCs = new AnimatorOverrideController[10];
@@ -63,6 +63,7 @@ public class TypeManager : MonoBehaviour
         towerSprites[7] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_azure");
         towerSprites[8] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_black");
         towerSprites[9] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_white");
+        towerSprites[10] = Resources.Load<Sprite>("Sprites/Tower/sprite_tower_unselected");
 
         projectileSprites[0] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_green");
         projectileSprites[1] = Resources.Load<Sprite>("Sprites/Projectile/sprite_projectile_yellow");

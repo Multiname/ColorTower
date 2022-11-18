@@ -24,12 +24,29 @@ public class UIManager : MonoBehaviour
     public SpriteRenderer[] enemyGroups = new SpriteRenderer[3];
     public Text[] enemyGroupTexts = new Text[3];
 
+    public Sprite preparationStageSprite;
+    public Sprite battleStageSprite;
+    public Sprite[] groupSprites = new Sprite[11];
+
     private TypeManager typeManager;
     private GameManager gameManager;
     private CoinManager coinManager;
     private EnemyManager enemyManager;
 
     private Tower selectedTower = null;
+
+    private readonly List<Color> groupTextColors = new() {
+        new Color(0.082f, 0.161f, 0.094f),
+        new Color(0.631f, 0.471f, 0.031f),
+        new Color(0.486f, 0.125f, 0.027f),
+        new Color(0.016f, 0.204f, 0.263f),
+        new Color(0.157f, 0.396f, 0.063f),
+        new Color(0.173f, 0.122f, 0.055f),
+        new Color(0.259f, 0.090f, 0.255f),
+        new Color(0.031f, 0.518f, 0.518f),
+        new Color(0.078f, 0.090f, 0.098f),
+        new Color(0.000f, 0.922f, 0.659f)
+    };
 
     // Start is called before the first frame update
     void Awake()
@@ -39,7 +56,7 @@ public class UIManager : MonoBehaviour
         coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
 
-        selectedTowerSprite.color = Color.gray;
+        groupSprites = Resources.LoadAll<Sprite>("Sprites/Map/sprite_group");
     }
 
     // Update is called once per frame
@@ -51,7 +68,7 @@ public class UIManager : MonoBehaviour
     public void StartBattle()
     {
         startButton.interactable = false;
-        stage.color = Color.red;
+        stage.sprite = battleStageSprite;
         gameManager.StartBattle();
         if (selectedTower != null)
         {
@@ -70,13 +87,14 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < 3; ++i)
             if (enemyManager.enemyNumber[i] > 0)
             {
-                enemyGroups[i].enabled = true;
-                enemyGroups[i].color = typeManager.typeColors[(int)enemyManager.currentEnemyType[i]];
+                int typeNumber = (int)enemyManager.currentEnemyType[i];
+                enemyGroups[i].sprite = groupSprites[typeNumber];
                 enemyGroupTexts[i].text = enemyManager.enemyNumber[i].ToString();
+                enemyGroupTexts[i].color = groupTextColors[typeNumber];
             }
             else
             {
-                enemyGroups[i].enabled = false;
+                enemyGroups[i].sprite = groupSprites[10];
                 enemyGroupTexts[i].text = "";
             }
     }
@@ -84,7 +102,7 @@ public class UIManager : MonoBehaviour
     public void EndBattle()
     {
         startButton.interactable = true;
-        stage.color = Color.yellow;
+        stage.sprite = preparationStageSprite;
         if (selectedTower != null)
         {
             UpdateDamageUpgradeButton();
@@ -122,7 +140,7 @@ public class UIManager : MonoBehaviour
     {
         selectedTower = tower;
 
-        selectedTowerSprite.color = typeManager.typeColors[(int)selectedTower.weapon.currentType];
+        selectedTowerSprite.sprite = typeManager.towerSprites[(int)selectedTower.weapon.currentType];
         selectedTowerDamageIncrease.text = "+1";
 
         UpdateDamageUpgradeButton();
@@ -134,7 +152,7 @@ public class UIManager : MonoBehaviour
         if (selectedTower == null)
             return;
 
-        selectedTowerSprite.color = Color.gray;
+        selectedTowerSprite.sprite = typeManager.towerSprites[10];
         selectedTowerDamage.text = "";
         selectedTowerRange.text = "";
         selectedTowerDamageIncrease.text = "";
@@ -160,7 +178,7 @@ public class UIManager : MonoBehaviour
 
     public void SetWaveNumber(int number)
     {
-        waveNumber.text = "Wave: " + number.ToString();
+        waveNumber.text = number.ToString();
     }
 
     public void ShowGameOverWindow(int finalWaveNumber)
