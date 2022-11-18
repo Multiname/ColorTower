@@ -1,32 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Core : MonoBehaviour
 {
-    private List<Color> healthPointsColors = new()
-    {
-        Color.red,
-        Color.yellow,
-        Color.green,
-        Color.white
-    };
+    public int maxHealthPoints;
+    public Text healthPointsText;
 
-    public int maxHealthPoints = 4;
-
-    private SpriteRenderer spriteRenderer;
     private GameManager gameManager;
     public int healthPoints;
 
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         healthPoints = maxHealthPoints;
-        spriteRenderer.color = healthPointsColors[healthPoints - 1];
-
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        healthPointsText.text = healthPoints.ToString();
     }
 
     // Update is called once per frame
@@ -41,9 +32,10 @@ public class Core : MonoBehaviour
         if (healthPoints <= 0)
         {
             gameManager.EndGame();
+            Destroy(healthPointsText.gameObject);
             Destroy(gameObject);
         }
         else
-            spriteRenderer.color = healthPointsColors[healthPoints - 1];
+            healthPointsText.text = healthPoints.ToString();
     }
 }
