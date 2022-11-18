@@ -2097,7 +2097,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 852823076}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: UpgradeRange
+        m_MethodName: UpgradeDamage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3681,7 +3681,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 852823076}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: UpgradeDamage
+        m_MethodName: UpgradeRange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
