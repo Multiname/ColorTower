@@ -1973,7 +1973,7 @@ MonoBehaviour:
   selectedTowerSprite: {fileID: 466090810}
   enemyNumberText: {fileID: 169491066}
   waveNumber: {fileID: 1555859249}
-  gameOverWindowPrefab: {fileID: 3570835327990654880, guid: 53fcc528530991441b17a702b23d1893, type: 3}
+  gameOverWindowPrefab: {fileID: 4432447216037260506, guid: 53fcc528530991441b17a702b23d1893, type: 3}
   enemyGroups:
   - {fileID: 1203207785}
   - {fileID: 1503109649}

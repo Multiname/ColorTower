@@ -186,8 +186,8 @@ public class UIManager : MonoBehaviour
         GameObject gameOverWindow = Instantiate(gameOverWindowPrefab);
         Transform canvas = gameOverWindow.transform.GetChild(0);
         canvas.GetComponent<Canvas>().worldCamera = Camera.main;
-        canvas.GetChild(2).GetComponent<Text>().text = finalWaveNumber.ToString();
-        canvas.GetChild(3).GetComponent<Button>().onClick.AddListener(ReturnToMenu);
+        canvas.GetChild(0).GetComponent<Text>().text = finalWaveNumber.ToString();
+        canvas.GetChild(1).GetComponent<Button>().onClick.AddListener(ReturnToMenu);
     }
 
     public void ReturnToMenu()
