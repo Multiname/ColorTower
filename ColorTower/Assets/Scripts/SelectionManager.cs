@@ -61,7 +61,7 @@ public class SelectionManager : MonoBehaviour
     }
     private void SelectTowerOrChangeConnection(Tower tower)
     {
-        if (selected != null)
+        if (selected != null && selected.GetType() == typeof(Tower))
         {
             if (selected.GetComponent<Tower>().connectedWith == tower)
             {
