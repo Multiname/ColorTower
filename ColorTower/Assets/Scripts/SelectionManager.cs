@@ -29,6 +29,11 @@ public class SelectionManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
+            if (rayHit.transform == null)
+            {
+                CancelSelection();
+                return;
+            }
             switch (rayHit.transform.tag)
             {
                 case "Cell":
