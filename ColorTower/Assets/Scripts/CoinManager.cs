@@ -1,27 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    public int coins = 3;
-
     private UIManager uiManager;
     private SelectionManager selectionManager;
 
-    // Start is called before the first frame update
-    void Start()
+    public int coins;
+
+    private void Start()
     {
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
         selectionManager = GameObject.FindWithTag("SelectionManager").GetComponent<SelectionManager>();
 
         uiManager.SetCoinsNumber(coins);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void Pay(int cost)

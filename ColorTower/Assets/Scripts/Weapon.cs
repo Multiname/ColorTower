@@ -1,33 +1,35 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public GameObject projectilePrefab;
+    [SerializeField]
+    private GameObject projectilePrefab;
+
+    private TypeManager typeManager;
+
+    [SerializeField]
+    private float cooldown = 1.0f;
+
+    [HideInInspector]
     public TypeManager.Type originalType;
+    [HideInInspector]
     public TypeManager.Type currentType;
-    public float cooldown = 1.0f;
+    [HideInInspector]
     public int damage = 1;
+    [HideInInspector]
     public CircleCollider2D rangeCollider;
 
     private Vector3 position;
-    private TypeManager typeManager;
     private Queue<Transform> targets = new();
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
+        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        
         position = transform.parent.position;
         position.z = -1;
-        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
         rangeCollider = GetComponent<CircleCollider2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

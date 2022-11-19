@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TypeManager : MonoBehaviour
@@ -18,22 +16,22 @@ public class TypeManager : MonoBehaviour
         White
     }
 
-    public readonly List<Color> typeColors = new() {
-        Color.green, Color.yellow, Color.red, Color.blue,
-        new Color(0.68f, 0.84f, 0.03f), new Color(0.93f, 0.54f, 0.07f), new Color(0.8f, 0.12f, 0.69f), Color.cyan,
-        new Color(0.2f, 0.2f, 0.2f), new Color(0.8f, 0.8f, 0.8f)};
-
+    [HideInInspector]
     public Sprite unselectedCellSprite;
+    [HideInInspector]
     public Sprite hoveredCellSprite;
+    [HideInInspector]
     public Sprite selectedCellSprite;
+    [HideInInspector]
     public Sprite blockedCellSprite;
-
-    public Sprite[] enemySprites = new Sprite[10];
+    [HideInInspector]
     public Sprite[] towerSprites = new Sprite[11];
-    public Sprite[] projectileSprites = new Sprite[10];
-    public Sprite[] connectionSprites = new Sprite[6];
-    public AnimatorOverrideController[] enemyAOCs = new AnimatorOverrideController[10];
-    public AnimatorOverrideController[] projectileAOCs = new AnimatorOverrideController[10];
+
+    private Sprite[] enemySprites = new Sprite[10];
+    private Sprite[] projectileSprites = new Sprite[10];
+    private Sprite[] connectionSprites = new Sprite[6];
+    private AnimatorOverrideController[] enemyAOCs = new AnimatorOverrideController[10];
+    private AnimatorOverrideController[] projectileAOCs = new AnimatorOverrideController[10];
 
     private void Awake()
     {
@@ -104,18 +102,6 @@ public class TypeManager : MonoBehaviour
         projectileAOCs[7] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_azure");
         projectileAOCs[8] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_black");
         projectileAOCs[9] = Resources.Load<AnimatorOverrideController>("Animations/Projectile/aoc_projectile_white");
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SetType(Type type, Tower tower, bool isOriginal)

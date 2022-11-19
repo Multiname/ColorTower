@@ -1,29 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Core : MonoBehaviour
 {
-    public int maxHealthPoints;
-    public Text healthPointsText;
+    [SerializeField]
+    private Text healthPointsText;
 
     private GameManager gameManager;
-    public int healthPoints;
 
-    // Start is called before the first frame update
-    void Start()
+    public int maxHealthPoints;
+
+    private int healthPoints;
+
+    private void Start()
     {
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         healthPoints = maxHealthPoints;
         healthPointsText.text = healthPoints.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void TakeDamage()

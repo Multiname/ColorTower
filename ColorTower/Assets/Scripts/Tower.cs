@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : Selectable
 {
+    [HideInInspector]
     public Weapon weapon;
-    public int range = 1;
+    [HideInInspector]
     public Tower connectedWith = null;
+    [HideInInspector]
     public GameObject connection = null;
 
-    // Start is called before the first frame update
-    void Awake()
+    [HideInInspector]
+    public int range = 1;
+
+    private void Awake()
     {
         Initiate();
         weapon = transform.Find("Weapon").GetComponent<Weapon>();
@@ -30,12 +32,6 @@ public class Tower : Selectable
         Vector3 newPosition = position;
         newPosition.z = -2;
         transform.position = newPosition;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnMouseEnter()

@@ -1,41 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Text coinsNumber;
-    public Text selectedTowerDamage;
-    public Text selectedTowerDamageIncrease;
-    public Text selectedTowerRange;
-    public Button towerDamageUpgradeButton;
-    public Text towerDamageUpgradeText;
-    public Button towerRangeUpgradeButton;
-    public Text towerRangeUpgradeText;
-    public SpriteRenderer stage;
-    public Button startButton;
-    public SpriteRenderer selectedTowerSprite;
-    public Text enemyNumberText;
-    public Text waveNumber;
-    public GameObject gameOverWindowPrefab;
+    [SerializeField]
+    private Text coinsNumber;
+    [SerializeField]
+    private Text selectedTowerDamage;
+    [SerializeField]
+    private Text selectedTowerDamageIncrease;
+    [SerializeField]
+    private Text selectedTowerRange;
+    [SerializeField]
+    private Button towerDamageUpgradeButton;
+    [SerializeField]
+    private Text towerDamageUpgradeText;
+    [SerializeField]
+    private Button towerRangeUpgradeButton;
+    [SerializeField]
+    private Text towerRangeUpgradeText;
+    [SerializeField]
+    private SpriteRenderer stage;
+    [SerializeField]
+    private Button startButton;
+    [SerializeField]
+    private SpriteRenderer selectedTowerSprite;
+    [SerializeField]
+    private Text enemyNumberText;
+    [SerializeField]
+    private Text waveNumber;
+    [SerializeField]
+    private GameObject gameOverWindowPrefab;
+    [SerializeField]
+    private SpriteRenderer[] enemyGroups = new SpriteRenderer[3];
+    [SerializeField]
+    private Text[] enemyGroupTexts = new Text[3];
+    [SerializeField]
+    private Sprite preparationStageSprite;
+    [SerializeField]
+    private Sprite battleStageSprite;
 
-    public SpriteRenderer[] enemyGroups = new SpriteRenderer[3];
-    public Text[] enemyGroupTexts = new Text[3];
-
-    public Sprite preparationStageSprite;
-    public Sprite battleStageSprite;
-    public Sprite[] groupSprites = new Sprite[11];
+    private Sprite[] groupSprites = new Sprite[11];
 
     private TypeManager typeManager;
     private GameManager gameManager;
     private CoinManager coinManager;
     private EnemyManager enemyManager;
 
-    private Tower selectedTower = null;
-
-    private readonly List<Color> groupTextColors = new() {
+    private readonly Color[] groupTextColors = {
         new Color(0.082f, 0.161f, 0.094f),
         new Color(0.631f, 0.471f, 0.031f),
         new Color(0.486f, 0.125f, 0.027f),
@@ -48,8 +61,9 @@ public class UIManager : MonoBehaviour
         new Color(0.000f, 0.922f, 0.659f)
     };
 
-    // Start is called before the first frame update
-    void Awake()
+    private Tower selectedTower = null;
+
+    private void Awake()
     {
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
@@ -57,12 +71,6 @@ public class UIManager : MonoBehaviour
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
 
         groupSprites = Resources.LoadAll<Sprite>("Sprites/Map/sprite_group");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void StartBattle()

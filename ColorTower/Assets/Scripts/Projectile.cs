@@ -1,25 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public TypeManager.Type type;
-    public SpriteRenderer spriteRenderer { get; private set; }
-    public float speed = 5.0f;
-    public Transform target;
-    public int damage;
+    [HideInInspector]
+    public SpriteRenderer spriteRenderer;
+    [HideInInspector]
     public Animator animator;
 
-    // Start is called before the first frame update
-    void Awake()
+    public float speed = 5.0f;
+
+    [HideInInspector]
+    public TypeManager.Type type;
+    [HideInInspector]
+    public Transform target;
+    [HideInInspector]
+    public int damage;
+
+    private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (target == null)
             Destroy(gameObject);
@@ -35,13 +38,10 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.transform == target)
         {
-            if (!collision.gameObject.TryGetComponent(out Enemy enemy))
-            {
-                Destroy(gameObject);
-                return;
-            }
-            enemy.TakeDamage(damage, type);
             Destroy(gameObject);
+            if (!collision.gameObject.TryGetComponent(out Enemy enemy))
+                return;
+            enemy.TakeDamage(damage, type);
         }
     }
 }

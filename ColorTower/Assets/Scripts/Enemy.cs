@@ -1,15 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [HideInInspector]
+    public SpriteRenderer spriteRenderer;
+    [HideInInspector]
+    public Animator animator;
+
     private EnemyManager enemyManager;
-    private GameManager gameManager;
     private CoinManager coinManager;
+
+    private Transform healthBarLength;
+    private SpriteRenderer healthBarSprite;
+
+    public float speed;
+
+    [HideInInspector]
     public int movesetNumber;
-    private int movementStep = 0;
-    public float speed = 5.0f;
     public int MaxHealthPoints {
         set
         {
@@ -17,24 +24,21 @@ public class Enemy : MonoBehaviour
             scaleChange = new(1.0f / value, 0, 0);
         }
     }
-    public int coins = 1;
-
-    public int healthPoints;
+    [HideInInspector]
+    public int coins;
+    [HideInInspector]
     public TypeManager.Type type;
-    public SpriteRenderer spriteRenderer;
-    public Animator animator;
-    private Transform healthBarLength;
-    private SpriteRenderer healthBarSprite;
+
+    private int movementStep = 0;
+    private int healthPoints;
     private Vector3 scaleChange;
     private bool isAlive = true;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
 
         Transform child = transform.GetChild(0);
@@ -42,8 +46,7 @@ public class Enemy : MonoBehaviour
         healthBarSprite = child.GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (enemyManager.moveInDirection[enemyManager.movesets[movesetNumber][movementStep]](transform, speed))
             ++movementStep;
@@ -54,7 +57,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Core"))
         {
             collision.gameObject.GetComponent<Core>().TakeDamage();
-            gameManager.DecrementEnemyNumber();
+            enemyManager.DecrementEnemyNumber();
             Destroy(gameObject);
             Destroy(this);
         }
@@ -71,7 +74,7 @@ public class Enemy : MonoBehaviour
             isAlive = false;
 
             coinManager.ObtainCoins(coins);
-            gameManager.DecrementEnemyNumber();
+            enemyManager.DecrementEnemyNumber();
             Destroy(gameObject);
         }
         else

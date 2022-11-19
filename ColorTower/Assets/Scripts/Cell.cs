@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cell : Selectable
 {
     private GameManager gameManager;
     private TypeManager typeManager;
+    private CoinManager coinManager;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Initiate();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
     }
 
     public override void CancelSelection()
@@ -25,12 +24,6 @@ public class Cell : Selectable
     {
         isSelected = true;
         spriteRenderer.sprite = typeManager.selectedCellSprite;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnMouseEnter()

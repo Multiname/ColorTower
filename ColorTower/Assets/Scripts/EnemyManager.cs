@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public readonly List<Func<Transform, float, bool>> moveInDirection = new() {
+    [SerializeField]
+    public GameObject enemyPrefab;
+
+    private TypeManager typeManager;
+    private UIManager uiManager;
+    private GameManager gameManager;
+
+    public readonly Func<Transform, float, bool>[] moveInDirection = {
         (Transform transform, float speed) =>
         {
             transform.Translate(Vector3.down * Time.deltaTime * speed);
@@ -32,37 +39,36 @@ public class EnemyManager : MonoBehaviour
             return transform.position.x >= 4;
         }
     };
-    public readonly List<List<int>> movesets = new()
+    public readonly int[][] movesets =
     {
-        new() { 0, 1, 2, 4, 0 },
-        new() { 0, 1, 2, 3, 0, 4 }
+        new[] { 0, 1, 2, 4, 0 },
+        new[] { 0, 1, 2, 3, 0, 4 }
     };
 
-    public GameObject enemyPrefab;
-    public TypeManager.Type[] currentEnemyType;
-    public int[] enemyNumber;
-    public int enemyHealthPoints = 5;
     public float spawnInterval = 1;
-    public int rewardCoins = 1;
 
-    private TypeManager typeManager;
+    [HideInInspector]
+    public TypeManager.Type[] currentEnemyType;
+    [HideInInspector]
+    public int[] enemyNumber;
+
+    private int currentEnemyNumber;
+    private int enemyHealthPoints = 5;
+    private int rewardCoins = 1;
     private List<Enemy> enemies = new();
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
+        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
+        uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
         currentEnemyType = new TypeManager.Type[3];
         enemyNumber = new int[3];
         for (int i = 0; i < 3; ++i)
             enemyNumber[i] = 0;
 
-        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ReloadEnemyNumber();
     }
 
     public int GenerateWave()
@@ -115,5 +121,25 @@ public class EnemyManager : MonoBehaviour
         StopCoroutine(SpawnEnemies());
         foreach (Enemy enemy in enemies)
             Destroy(enemy);
+    }
+
+    public void DecrementEnemyNumber()
+    {
+        --currentEnemyNumber;
+        if (currentEnemyNumber <= 0)
+        {
+            gameManager.EndBattle();
+            ReloadEnemyNumber();
+            return;
+        }
+        uiManager.SetEnemyNumber(currentEnemyNumber);
+    }
+
+    public void ReloadEnemyNumber()
+    {
+        enemies.Clear();
+        currentEnemyNumber = GenerateWave();
+        uiManager.SetEnemyNumber(currentEnemyNumber);
+        uiManager.SetEnemyGroups();
     }
 }

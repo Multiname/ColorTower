@@ -62,9 +62,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6222252081790918887, guid: 6946f1dc7afbc514f8bd6a88a5385dba, type: 3}
+  cooldown: 1
   originalType: 0
   currentType: 0
-  cooldown: 1
   damage: 2
   rangeCollider: {fileID: 0}
 --- !u!1 &9048872617896562319
@@ -168,11 +168,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0, z: 0}
   spriteRenderer: {fileID: 0}
-  isSelected: 0
   weapon: {fileID: 0}
-  range: 1
   connectedWith: {fileID: 0}
   connection: {fileID: 0}
+  range: 1
 --- !u!58 &6754099465596059321
 CircleCollider2D:
   m_ObjectHideFlags: 0

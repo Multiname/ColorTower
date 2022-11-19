@@ -1,34 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SelectionManager : MonoBehaviour
 {
-    private GameObject createdInterface;
-    private Selectable selected;
+    [SerializeField]
+    private GameObject towerPickingInterface;
+    [SerializeField]
+    private GameObject rangeVisualisation;
+
     private TowerManager towerManager;
     private UIManager uiManager;
-    private TypeManager typeManager;
+    private CoinManager coinManager;
+    private GameManager gameManager;
 
-    public GameObject towerPickingInterface;
-    public GameObject rangeVisualisation;
-    public GameObject connectionVisualisation;
-    public CoinManager coinManager;
-    public GameManager gameManager;
+    private GameObject createdInterface;
+    private Selectable selected;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         towerManager = GameObject.FindWithTag("TowerManager").GetComponent<TowerManager>();
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         coinManager = GameObject.FindWithTag("CoinManager").GetComponent<CoinManager>();
-        typeManager = GameObject.FindWithTag("TypeManager").GetComponent<TypeManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -40,7 +36,7 @@ public class SelectionManager : MonoBehaviour
                         SelectCell(rayHit.transform.GetComponent<Cell>());
                     break;
                 case "Tower":
-                    SelectOrChangeConnectionTower(rayHit.transform.GetComponent<Tower>());
+                    SelectTowerOrChangeConnection(rayHit.transform.GetComponent<Tower>());
                     break;
                 case "TowerPicker":
                     PlaceTower(rayHit.transform.GetComponent<TowerPicker>().type);
@@ -63,56 +59,18 @@ public class SelectionManager : MonoBehaviour
         selected = selectable;
         selected.Select();
     }
-
-    private bool ConnectTowers(Tower secondTower)
-    {
-        Tower selectedTower = selected.GetComponent<Tower>();
-        int firstTypeNumber = (int)selectedTower.weapon.currentType;
-        int secondTypeNumber = (int)secondTower.weapon.currentType;
-
-        if (firstTypeNumber / 4 + secondTypeNumber / 4 != 0)
-            return false;
-        if (firstTypeNumber == secondTypeNumber)
-            return false;
-
-        TypeManager.Type resultType;
-        if ((firstTypeNumber + secondTypeNumber) % 2 == 0)
-            resultType = (TypeManager.Type)((firstTypeNumber + secondTypeNumber) / 2 + 7);
-        else
-        {
-            float a = firstTypeNumber * Mathf.PI / 2;
-            float b = secondTypeNumber * Mathf.PI / 2;
-
-            int x = Mathf.RoundToInt(2 * (Mathf.Cos(a) + Mathf.Cos(b)) - (Mathf.Sin(a) + Mathf.Sin(b)));
-            int sign = (int)((int)Mathf.Pow(2, x) * Mathf.Pow(2, -x));
-            resultType = (TypeManager.Type)((int)(x * Mathf.Pow(-1, sign) + 4 * sign + 5) / 2 % 4 + 4);
-        }
-
-        typeManager.SetType(resultType, selectedTower, false);
-        typeManager.SetType(resultType, secondTower, false);
-        selectedTower.connectedWith = secondTower;
-        secondTower.connectedWith = selectedTower;
-        selectedTower.connection = Instantiate(connectionVisualisation,
-            (selectedTower.position + secondTower.position) / 2 + Vector3.forward,
-            Quaternion.LookRotation(Vector3.forward, selectedTower.position - secondTower.position));
-        secondTower.connection = selectedTower.connection;
-        typeManager.ColorConnection(selectedTower.connection.GetComponent<SpriteRenderer>(), resultType);
-
-        return true;
-    }
-
-    private void SelectOrChangeConnectionTower(Tower tower)
+    private void SelectTowerOrChangeConnection(Tower tower)
     {
         if (selected != null)
         {
             if (selected.GetComponent<Tower>().connectedWith == tower)
             {
-                UnconnectTower();
+                towerManager.UnconnectTower(selected.GetComponent<Tower>());
                 CancelSelection();
                 return;
             }
             if (Vector2.Distance(selected.position, tower.position) <= 1)
-                if (ConnectTowers(tower))
+                if (towerManager.ConnectTowers(selected.GetComponent<Tower>(), tower))
                 {
                     CancelSelection();
                     return;
@@ -122,19 +80,7 @@ public class SelectionManager : MonoBehaviour
         SelectTower(tower);
     }
 
-    private void UnconnectTower()
-    {
-        Tower tower = selected.GetComponent<Tower>();
-        typeManager.SetType(tower.weapon.originalType, tower, false);
-        typeManager.SetType(tower.connectedWith.weapon.originalType, tower.connectedWith, false);
-        Destroy(tower.connection);
-        tower.connection = null;
-        tower.connectedWith.connection = null;
-        tower.connectedWith.connectedWith = null;
-        tower.connectedWith = null;
-    }
-
-    public void SelectCell(Cell cell)
+    private void SelectCell(Cell cell)
     {
         Select(cell);
         Vector3 position = new(selected.position.x, selected.position.y, -4);
@@ -162,7 +108,7 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    public void PlaceTower(TypeManager.Type type)
+    private void PlaceTower(TypeManager.Type type)
     {
         towerManager.PlaceTower(type, selected.position);
         CancelSelection();
