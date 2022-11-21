@@ -22,6 +22,7 @@ public class Weapon : MonoBehaviour
 
     private Vector3 position;
     private Queue<Transform> targets = new();
+    private bool isAttacking = false;
 
     private void Awake()
     {
@@ -37,23 +38,29 @@ public class Weapon : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             targets.Enqueue(collision.transform);
-            if (targets.Count == 1)
+            if (targets.Count == 1 && !isAttacking)
+            {
+                isAttacking = true;
                 InvokeRepeating(nameof(Fire), 0, cooldown);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
-        {
             targets.Dequeue();
-            if (targets.Count == 0)
-                CancelInvoke(nameof(Fire));
-        }
     }
 
     private void Fire()
     {
+        if (targets.Count == 0)
+        {
+            CancelInvoke(nameof(Fire));
+            isAttacking = false;
+            return;
+        }
+
         Projectile projectile = Instantiate(projectilePrefab, position,
             Quaternion.identity).GetComponent<Projectile>();
         projectile.target = targets.Peek();
