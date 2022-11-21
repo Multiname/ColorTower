@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private Core core;
+
     private EnemyManager enemyManager;
     private UIManager uiManager;
     private TowerManager towerManager;
@@ -34,10 +37,13 @@ public class GameManager : MonoBehaviour
 
     public void EndBattle()
     {
-        gameState = GameState.Preparation;
-        uiManager.EndBattle();
-        ++waveNumber;
-        uiManager.SetWaveNumber(waveNumber);
+        if (core != null && core.healthPoints > 0)
+        {
+            gameState = GameState.Preparation;
+            uiManager.EndBattle();
+            ++waveNumber;
+            uiManager.SetWaveNumber(waveNumber);
+        }
     }
 
     public void EndGame()

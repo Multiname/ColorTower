@@ -10,7 +10,8 @@ public class Core : MonoBehaviour
 
     public int maxHealthPoints;
 
-    private int healthPoints;
+    [HideInInspector]
+    public int healthPoints;
 
     private void Start()
     {
