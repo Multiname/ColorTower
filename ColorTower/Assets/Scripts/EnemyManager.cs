@@ -97,8 +97,12 @@ public class EnemyManager : MonoBehaviour
 
     public IEnumerator SpawnEnemies()
     {
+        int[] enemiesInGroups = new int[3];
         for (int i = 0; i < 3; ++i)
-            for (int j = 0; j < enemyNumber[i]; ++j)
+            enemiesInGroups[i] = enemyNumber[i];
+
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < enemiesInGroups[i]; ++j)
             {
                 SpawnEnemy(i);
                 yield return new WaitForSeconds(spawnInterval);
