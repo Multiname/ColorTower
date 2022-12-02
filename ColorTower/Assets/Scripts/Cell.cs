@@ -29,7 +29,7 @@ public class Cell : Selectable
     private void OnMouseEnter()
     {
         if (!isSelected && gameManager.gameState == GameManager.GameState.Preparation)
-            if (coinManager.coins <= 0)
+            if (coinManager.coins < 10)
                 spriteRenderer.sprite = typeManager.blockedCellSprite;
             else
                 spriteRenderer.sprite = typeManager.hoveredCellSprite;

@@ -29,18 +29,18 @@ public class CoinManager : MonoBehaviour
 
     public int CalculateTowerDamageUpgradeCost(int currentDamage)
     {
-        return currentDamage + 1;
+        return currentDamage * 6;
     }
 
     public int CalculateTowerRangeUpgradeCost(int currentRange)
     {
-        return currentRange * 10;
+        return currentRange * 15;
     }
 
     public void UpgradeTowerDamage(Weapon weapon)
     {
         Pay(CalculateTowerDamageUpgradeCost(weapon.damage));
-        ++weapon.damage;
+        weapon.damage *= 2;
     }
 
     public void UpgradeTowerRange(Tower tower)

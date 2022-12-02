@@ -809,7 +809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 9048872617896562319, guid: 8db7083c0e5541244a7981694c64e8d6, type: 3}
   connectionVisualisation: {fileID: 6366935699272189097, guid: 5a4cfdeb6d7553a408b9163dce2099fd, type: 3}
-  towerCost: 1
+  towerCost: 10
 --- !u!1 &466090809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2777,7 +2777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194667262655756303, guid: b3a85badabae7aa4499e0f9cd036f198, type: 3}
       propertyPath: maxHealthPoints
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3194667262655756303, guid: b3a85badabae7aa4499e0f9cd036f198, type: 3}
       propertyPath: healthPointsText
@@ -4583,7 +4583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aae392eab2f7c64ab3767068b50b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 4
+  coins: 25
 --- !u!1 &2137868171
 GameObject:
   m_ObjectHideFlags: 0

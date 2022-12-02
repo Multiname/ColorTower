@@ -53,9 +53,10 @@ public class EnemyManager : MonoBehaviour
     public int[] enemyNumber;
 
     private int currentEnemyNumber;
-    private int enemyHealthPoints = 5;
+    private int enemyHealthPoints = 6;
     private int rewardCoins = 1;
     private List<Enemy> enemies = new();
+    private bool gameIsEnded = false;
 
     private void Awake()
     {
@@ -82,7 +83,7 @@ public class EnemyManager : MonoBehaviour
 
         if (enemyNumberSum >= 30)
         {
-            enemyHealthPoints += 5;
+            enemyHealthPoints *= 3;
             rewardCoins += 1;
 
             for (int i = 0; i < 3; ++i)
@@ -97,32 +98,45 @@ public class EnemyManager : MonoBehaviour
 
     public IEnumerator SpawnEnemies()
     {
-        int[] enemiesInGroups = new int[3];
+        List<int> enemyGroups = new();
         for (int i = 0; i < 3; ++i)
-            enemiesInGroups[i] = enemyNumber[i];
+            for (int j = 0; j < enemyNumber[i]; ++j)
+                enemyGroups.Add(i);
 
-        for (int i = 0; i < 3; ++i)
-            for (int j = 0; j < enemiesInGroups[i]; ++j)
-            {
-                SpawnEnemy(i);
-                yield return new WaitForSeconds(spawnInterval);
-            }
+        System.Random rng = new();
+        int n = enemyGroups.Count;
+        while (n > 1)
+        {
+            --n;
+            int k = rng.Next(n + 1);
+            int temp = enemyGroups[k];
+            enemyGroups[k] = enemyGroups[n];
+            enemyGroups[n] = temp;
+        }
+
+        foreach (int group in enemyGroups)
+        {
+            if (gameIsEnded)
+                break;
+            SpawnEnemy(group);
+            yield return new WaitForSeconds(spawnInterval);
+        }
     }
 
     private void SpawnEnemy(int enemyGroup)
     {
         Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
+        enemies.Add(enemy);
+
         enemy.MaxHealthPoints = enemyHealthPoints;
         enemy.movesetNumber = UnityEngine.Random.Range(0, 2);
         typeManager.SetType(currentEnemyType[enemyGroup], enemy);
         enemy.coins = rewardCoins;
-
-        enemies.Add(enemy);
     }
 
     public void StopEnemies()
     {
-        StopCoroutine(SpawnEnemies());
+        gameIsEnded = true;
         foreach (Enemy enemy in enemies)
             Destroy(enemy);
     }

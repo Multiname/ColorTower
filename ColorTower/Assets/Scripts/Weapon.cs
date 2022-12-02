@@ -16,12 +16,12 @@ public class Weapon : MonoBehaviour
     [HideInInspector]
     public TypeManager.Type currentType;
     [HideInInspector]
-    public int damage = 1;
+    public int damage = 2;
     [HideInInspector]
     public CircleCollider2D rangeCollider;
 
     private Vector3 position;
-    private Queue<Transform> targets = new();
+    private List<Transform> targets = new();
     private bool isAttacking = false;
 
     private void Awake()
@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            targets.Enqueue(collision.transform);
+            targets.Add(collision.transform);
             if (targets.Count == 1 && !isAttacking)
             {
                 isAttacking = true;
@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
-            targets.Dequeue();
+            targets.Remove(collision.transform);
     }
 
     private void Fire()
@@ -63,7 +63,7 @@ public class Weapon : MonoBehaviour
 
         Projectile projectile = Instantiate(projectilePrefab, position,
             Quaternion.identity).GetComponent<Projectile>();
-        projectile.target = targets.Peek();
+        projectile.target = targets[0];
         projectile.damage = damage;
         typeManager.SetType(currentType, projectile);
     }

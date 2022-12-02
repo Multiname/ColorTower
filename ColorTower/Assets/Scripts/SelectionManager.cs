@@ -37,7 +37,7 @@ public class SelectionManager : MonoBehaviour
             switch (rayHit.transform.tag)
             {
                 case "Cell":
-                    if (gameManager.gameState == GameManager.GameState.Preparation && coinManager.coins > 0)
+                    if (gameManager.gameState == GameManager.GameState.Preparation && coinManager.coins >= 10)
                         SelectCell(rayHit.transform.GetComponent<Cell>());
                     break;
                 case "Tower":
@@ -97,7 +97,7 @@ public class SelectionManager : MonoBehaviour
         Select(tower);
         Vector3 position = new(selected.position.x, selected.position.y, -1);
         createdInterface = Instantiate(rangeVisualisation, position, rangeVisualisation.transform.rotation);
-        int radius = tower.range * 2 + 4;
+        float radius = 2 * (2.5f + (tower.range - 1) * 0.8f);
         createdInterface.transform.localScale = new(radius, radius, 1);
         uiManager.SelectTower(tower);
     }

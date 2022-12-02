@@ -149,7 +149,7 @@ public class UIManager : MonoBehaviour
         selectedTower = tower;
 
         selectedTowerSprite.sprite = typeManager.towerSprites[(int)selectedTower.weapon.currentType];
-        selectedTowerDamageIncrease.text = "+1";
+        selectedTowerDamageIncrease.text = "x2";
 
         UpdateDamageUpgradeButton();
         UpdateRangeUpgradeButton();

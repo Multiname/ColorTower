@@ -12,23 +12,26 @@ public class Tower : Selectable
     [HideInInspector]
     public int range = 1;
 
+    private Vector2 baseSpriteSize;
+
     private void Awake()
     {
         Initiate();
         weapon = transform.Find("Weapon").GetComponent<Weapon>();
+        baseSpriteSize = spriteRenderer.size;
     }
 
     public override void CancelSelection()
     {
         isSelected = false;
-        transform.localScale = new(1, 1, 1);
+        spriteRenderer.size = baseSpriteSize;
         transform.position = position;
     }
 
     public override void Select()
     {
         isSelected = true;
-        transform.localScale = new(1.2f, 1.2f, 1);
+        spriteRenderer.size = baseSpriteSize * 1.2f;
         Vector3 newPosition = position;
         newPosition.z = -2;
         transform.position = newPosition;
@@ -38,7 +41,7 @@ public class Tower : Selectable
     {
         if (!isSelected)
         {
-            transform.localScale = new(1.1f, 1.1f, 1);
+            spriteRenderer.size = baseSpriteSize * 1.1f;
             Vector3 newPosition = position;
             newPosition.z = -3;
             transform.position = newPosition;
@@ -49,7 +52,7 @@ public class Tower : Selectable
     {
         if (!isSelected)
         {
-            transform.localScale = new(1, 1, 1);
+            spriteRenderer.size = baseSpriteSize;
             transform.position = position;
         }
     }
